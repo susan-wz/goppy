@@ -10,15 +10,69 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_14_165822) do
+ActiveRecord::Schema.define(version: 2020_03_05_221317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
+  create_table "cards", force: :cascade do |t|
+    t.string "name"
+    t.string "suit"
+    t.integer "value"
+    t.string "img_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "game_rounds", force: :cascade do |t|
+    t.integer "game_id"
+  end
+
+  create_table "game_types", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "tutorial"
+    t.integer "min_players"
+    t.integer "max_players"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.integer "game_type_id"
+    t.string "status"
+    t.string "winner"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "player_states", force: :cascade do |t|
+    t.integer "round_id"
+    t.integer "player_id"
+    t.string "suit"
+    t.string "score"
+    t.boolean "card_1"
+    t.boolean "card_2"
+    t.boolean "card_3"
+    t.boolean "card_4"
+    t.boolean "card_5"
+    t.boolean "card_6"
+    t.boolean "card_7"
+    t.boolean "card_8"
+    t.boolean "card_9"
+    t.boolean "card_10"
+    t.boolean "card_11"
+    t.boolean "card_12"
+    t.boolean "card_13"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
+    t.integer "points"
+    t.string "type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
