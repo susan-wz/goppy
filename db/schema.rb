@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_05_221317) do
+ActiveRecord::Schema.define(version: 2020_03_05_234027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,24 +24,20 @@ ActiveRecord::Schema.define(version: 2020_03_05_221317) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "game_rounds", force: :cascade do |t|
-    t.integer "game_id"
+  create_table "games", force: :cascade do |t|
+    t.integer "game_type_id"
+    t.string "status"
+    t.string "winner"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "game_types", force: :cascade do |t|
+  create_table "gametypes", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.string "tutorial"
     t.integer "min_players"
     t.integer "max_players"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "games", force: :cascade do |t|
-    t.integer "game_type_id"
-    t.string "status"
-    t.string "winner"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -72,9 +68,13 @@ ActiveRecord::Schema.define(version: 2020_03_05_221317) do
     t.string "username"
     t.string "password"
     t.integer "points"
-    t.string "type"
+    t.string "player_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rounds", force: :cascade do |t|
+    t.integer "game_id"
   end
 
 end
