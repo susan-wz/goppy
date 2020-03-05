@@ -1,27 +1,12 @@
 import React from 'react';
 import './App.css';
-import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import useApplicationData from '../hooks/useApplicationData';
 
 function App() {
-  const { links } = useApplicationData();
+  const { state, links } = useApplicationData();
 
-  axios.request({
-    url: 'http://localhost:3001/players',
-    method: 'get',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Access-Control-Allow-Credentials': true
-    },
-    withCredentials: true
-  }).then(function (response) {
-    console.log(response);
-  })
-    .catch(function (error) {
-      console.log(error);
-    });
+  console.log(state)
 
   const routes = links.map((link, index) => {
     return (
