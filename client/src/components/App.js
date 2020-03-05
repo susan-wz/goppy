@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div>
-      <h1>settle</h1>
+      <h1>goppy</h1>
     </div>
   );
 }
