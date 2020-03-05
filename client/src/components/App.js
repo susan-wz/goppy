@@ -8,7 +8,7 @@ function App() {
   const { links } = useApplicationData();
 
   axios.request({
-    url: 'http://localhost:3001/users',
+    url: 'http://localhost:3001/players',
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
