@@ -1,0 +1,2 @@
+class Gametype < ApplicationRecord
+end
