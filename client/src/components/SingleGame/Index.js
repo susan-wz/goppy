@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, useLocation } from "react-router";
 import axios from 'axios';
+import Button from '../Elements/Button';
+import useVisualMode from "../../hooks/useVisualMode.js";
+import LoadingCircle from "../Elements/LoadingCircle.js";
 
 function SingleGame() {
   const gameId = useLocation().pathname.substring(20)
+  const { mode, transition } = useVisualMode("loading");
   const [state, setState] = useState({
     game: {}
   })
@@ -23,6 +27,7 @@ function SingleGame() {
         ...prev, 
         game: response.data
       }))
+      transition("ready")
     })
       .catch(function (error) {
         console.log(error);
@@ -33,6 +38,8 @@ function SingleGame() {
   return (
     <div>
       <h1>Single Player Game</h1>
+      {mode === "loading" && <LoadingCircle /> }
+      {mode === "ready" && <Button text={"Start"} /> }
     </div>
   );
 }
