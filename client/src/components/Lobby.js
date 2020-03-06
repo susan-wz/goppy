@@ -1,14 +1,34 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect, useHistory } from "react-router-dom";
 import Button from './Elements/Button.js';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import axios from 'axios';
 
 function Lobby(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  let history = useHistory();
 
   const handleSinglePlayer = () => {
-    // not sure if I even need this
+    axios.request({
+      url: 'http://localhost:3001/games',
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Credentials': true
+      },
+      params: {
+        game_type_id: 1,
+        status: "not started"
+      },
+      withCredentials: true
+    }).then(function (response) {
+      history.push(`/single-player-game/${response.data.id}`)
+    })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   const handleMultiPlayer = (event) => {
@@ -26,9 +46,7 @@ function Lobby(props) {
       <p>{props.gameInfo.description}</p>
       <h2>Tutorial</h2>
       <p>{props.gameInfo.tutorial}</p>
-      <Link to='/single-player-game'>
-        <Button text={"Single-Player"} handleClick={handleSinglePlayer} />
-      </Link>
+      <Button text={"Single-Player"} handleClick={handleSinglePlayer} />
       <Button text={"Multi-Player"} handleClick={handleMultiPlayer} />
       <Menu
         id="simple-menu"

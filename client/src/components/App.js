@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import useApplicationData from '../hooks/useApplicationData';
-import Lobby from './Lobby.js';
 
 function App() {
   const { state, links } = useApplicationData();
@@ -14,7 +13,6 @@ function App() {
       </Route>
     )
   })
-
 
   return (
     <div>
