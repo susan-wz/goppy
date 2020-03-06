@@ -4,6 +4,7 @@ import axios from 'axios';
 import Button from '../Elements/Button';
 import useVisualMode from "../../hooks/useVisualMode.js";
 import LoadingCircle from "../Elements/LoadingCircle.js";
+import Play from "./Play.js"
 
 function SingleGame() {
   const gameId = useLocation().pathname.substring(20)
@@ -32,14 +33,18 @@ function SingleGame() {
       .catch(function (error) {
         console.log(error);
       });  
-  }, [])
+  }, [gameId])
 
+  const handleStart = () => {
+    
+  }
 
   return (
     <div>
       <h1>Single Player Game</h1>
       {mode === "loading" && <LoadingCircle /> }
-      {mode === "ready" && <Button text={"Start"} /> }
+      {mode === "ready" && <Button text={"Start"} handleClick={handleStart} /> }
+      {mode === "play" && <Play /> }
     </div>
   );
 }
