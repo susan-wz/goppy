@@ -37,7 +37,7 @@ export default function useApplicationData() {
       component: <Lobby gameInfo={state.gameInfo} />
     },
     {
-      name: "Singe Player Game",
+      name: "Single Player Game",
       path: "/single-player-game",
       component: <SingleGame />
     },

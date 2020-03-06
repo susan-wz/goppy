@@ -1,25 +1,32 @@
 import React from 'react';
 import './App.css';
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import useApplicationData from '../hooks/useApplicationData';
 import Lobby from './Lobby.js';
 
 function App() {
-  const { state } = useApplicationData();
+  const { state, links } = useApplicationData();
 
-  // const routes = links.map((link, index) => {
-  //   return (
-  //     <Route path={link.path} key={index} >
-  //       {link.component}
-  //     </Route>
-  //   )
-  // })
+  const routes = links.map((link, index) => {
+    return (
+      <Route path={link.path} key={index} >
+        {link.component}
+      </Route>
+    )
+  })
 
 
   return (
     <div>
       <h1>goppy</h1>
-      <Lobby gameInfo={state.gameInfo} />
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/lobby" />
+          </Route>
+          {routes}
+        </Switch>
+      </Router>
     </div>
   );
 }

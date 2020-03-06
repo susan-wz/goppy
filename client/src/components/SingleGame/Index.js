@@ -4,7 +4,7 @@ function SingleGame() {
 
   return (
     <div>
-      <h1>SingleGame</h1>
+      <h1>Single Game</h1>
     </div>
   );
 }

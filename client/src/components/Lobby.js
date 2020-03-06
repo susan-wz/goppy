@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import Button from './Elements/Button.js';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -7,11 +8,10 @@ function Lobby(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleSinglePlayer = () => {
-    console.log("single player clicked!")
+    // not sure if I even need this
   }
 
   const handleMultiPlayer = (event) => {
-    console.log("multi player clicked!")
     setAnchorEl(event.currentTarget);
   }
 
@@ -26,7 +26,9 @@ function Lobby(props) {
       <p>{props.gameInfo.description}</p>
       <h2>Tutorial</h2>
       <p>{props.gameInfo.tutorial}</p>
-      <Button text={"Single-Player"} handleClick={handleSinglePlayer} />
+      <Link to='/single-player-game'>
+        <Button text={"Single-Player"} handleClick={handleSinglePlayer} />
+      </Link>
       <Button text={"Multi-Player"} handleClick={handleMultiPlayer} />
       <Menu
         id="simple-menu"
