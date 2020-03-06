@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from './Elements/Button.js';
 
 function Lobby(props) {
 
@@ -9,6 +10,8 @@ function Lobby(props) {
       <p>{props.gameInfo.description}</p>
       <h2>Tutorial</h2>
       <p>{props.gameInfo.tutorial}</p>
+      <Button text={"Single-Player"} />
+      <Button text={"Multi-Player"} />
     </div>
   );
 }
