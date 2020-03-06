@@ -15,7 +15,7 @@ export default function BasicButton(props) {
 
   return (
     <div className={classes.root}>
-      <Button variant="outlined">{props.text}</Button>
+      <Button variant="outlined" onClick={props.handleClick}>{props.text}</Button>
     </div>
   );
 }
