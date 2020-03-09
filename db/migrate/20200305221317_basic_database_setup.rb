@@ -1,16 +1,15 @@
 class BasicDatabaseSetup < ActiveRecord::Migration[6.0]
   def change
-    drop_table :users
 
     create_table :players do |t|
       t.string :username
       t.string :password
       t.integer :points
-      t.string :type
+      t.string :player_type
       t.timestamps null: false
     end
 
-    create_table :game_types do |t|
+    create_table :gametypes do |t|
       t.string :name
       t.string :description
       t.string :tutorial
@@ -20,18 +19,18 @@ class BasicDatabaseSetup < ActiveRecord::Migration[6.0]
     end
     
     create_table :games do |t|
-      t.integer :game_type_id, :references => [:game_types, :id]
+      t.integer :gametype_id, :references => [:gametypes, :id]
       t.string :status
       t.string :winner
       t.timestamps null: false
     end
 
-    create_table :game_rounds do |t|
+    create_table :rounds do |t|
       t.integer :game_id, :references => [:games, :id]
     end
 
     create_table :player_states do |t|
-      t.integer :round_id, :references => [:game_rounds, :id]
+      t.integer :round_id, :references => [:rounds, :id]
       t.integer :player_id, :references => [:players, :id]
       t.string :suit
       t.string :score
