@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2020_03_05_221317) do
 
   create_table "rounds", force: :cascade do |t|
     t.integer "game_id"
+    t.integer "round_in_game", default: 1, null: false
   end
 
 end

@@ -27,6 +27,7 @@ class BasicDatabaseSetup < ActiveRecord::Migration[6.0]
 
     create_table :rounds do |t|
       t.integer :game_id, :references => [:games, :id]
+      t.integer :round_in_game, null: false, :default => 1
     end
 
     create_table :player_states do |t|
