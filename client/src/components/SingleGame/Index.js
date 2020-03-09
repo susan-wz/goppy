@@ -15,10 +15,9 @@ function SingleGame() {
     player_state: {},
     robot_state: {},
     dealstack: {},
-    cards: {}
+    cards: {},
+    currentDealerCard: {}
   })
-
-  let dealerCardImg = <img />
 
   useEffect(() => {
     axios.get(`/games/${gameId}`)
@@ -39,13 +38,10 @@ function SingleGame() {
       const remainingCards = Object.keys(state.dealstack).filter(key => state.dealstack[key] === true)
       const randomCard = remainingCards[Math.floor(Math.random() * remainingCards.length)]
       const allCardsInDealerSuit = state.cards.filter(card => card.suit === state.dealstack.suit)
-      const dealerCard = allCardsInDealerSuit.find(card => card.value === parseInt(randomCard.slice(5)))
-      dealerCardImg = <img
-        src={dealerCard.img_url}
-        alt={dealerCard.name}
-        height={"90"}
-        key={dealerCard.id} />
-        console.log(dealerCardImg)
+      setState(prev => ({
+        ...prev,
+        currentDealerCard: allCardsInDealerSuit.find(card => card.value === parseInt(randomCard.slice(5)))
+      }))
     }
   }, [state.dealstack, state.cards])
 
@@ -91,7 +87,7 @@ function SingleGame() {
         dealstack={state.dealstack}
         round={state.round}
         cards={state.cards}
-        dealerCard={dealerCardImg} />}
+        dealerCard={state.currentDealerCard} />}
     </div>
   );
 }

@@ -1,26 +1,24 @@
 import React from 'react';
-import Card from '../Elements/Card.js';
+import CardButton from '../Elements/CardButton.js';
+import CardShow from '../Elements/CardShow.js';
 
 function Play(props) {
-  console.log(props.dealerCard)
 
   // gets robot's cards
   const numberOfRobotCards = Object.values(props.robot_state).filter(element => element === true).length
   const robotCards = [...Array(numberOfRobotCards)].map((x, index) => {
-    return <img
+    return <CardShow
       src={"https://res.cloudinary.com/susanwz/image/upload/v1583528920/Cards/Yellow_back_dqgro5.jpg"}
-      alt={"cards"}
-      height={"90"}
+      alt={"cardback"}
       key={index} />
   })
 
   // gets dealstacks
   const numberOfDealerCards = Object.values(props.dealstack).filter(element => element === true).length
   const dealstack = [...Array(numberOfDealerCards)].map((x, index) => {
-    return <img
+    return <CardShow
       src={"https://res.cloudinary.com/susanwz/image/upload/v1583528920/Cards/Red_back_z8c7hz.jpg"}
-      alt={"cards"}
-      height={"90"}
+      alt={"cardback"}
       key={index} />
   })
 
@@ -34,8 +32,13 @@ function Play(props) {
   })
   const allCardsInPlayerSuit = props.cards.filter(card => card.suit === props.player_state.suit)
   const playerCards = allCardsInPlayerSuit.filter(card => playerCardValues.includes(card.value)).map((card, index) => {
-    return <Card src={card.img_url} index={index} handleClick={handleCardClick} />
+    return <CardButton src={card.img_url} index={index} handleClick={handleCardClick} />
   })
+
+  const dealerCardImg = <CardShow
+    src={props.dealerCard.img_url}
+    alt={props.dealerCard.name}
+    key={props.dealerCard.id} />
 
   return (
     <div>
@@ -49,7 +52,7 @@ function Play(props) {
       <h2>Remaining Dealer Cards</h2>
       {dealstack}
       <h2>Current Dealer Card</h2>
-      {props.dealerCard}
+      {dealerCardImg}
       <h2>Your Hand</h2>
       {playerCards}
     </div>
