@@ -37,10 +37,54 @@ function SingleGame() {
   }, [gameId])
 
   const handleStart = () => {
-    // set game status to started
-    // create a round
+    // set game status to started (done)
+    // create a round (done)
     // create two player states
     // pull initial hands from player states into maybe state or maybe just a variable
+    Promise.all([
+    axios.request({
+      url: `http://localhost:3001/games/${gameId}`,
+      method: 'patch',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Credentials': true
+      },
+      params: {
+        status: "started"
+      },
+      withCredentials: true
+    }).then(function (response) {
+      setState(prev => ({
+        ...prev, 
+        game: response.data
+      }))
+    })
+      .catch(function (error) {
+        console.log(error);
+      }),
+      axios.request({
+        url: `http://localhost:3001/rounds`,
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Credentials': true
+        },
+        params: {
+          game_id: gameId
+        },  
+        withCredentials: true
+      }).then(function (response) {
+        setState(prev => ({
+          ...prev, 
+          round: response.data
+        }))
+      })
+        .catch(function (error) {
+          console.log(error);
+        })
+    ])
   }
 
   return (
