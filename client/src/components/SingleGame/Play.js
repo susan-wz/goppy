@@ -2,6 +2,7 @@ import React from 'react';
 import Card from '../Elements/Card.js';
 
 function Play(props) {
+  console.log(props.dealerCard)
 
   // gets robot's cards
   const numberOfRobotCards = Object.values(props.robot_state).filter(element => element === true).length
@@ -39,7 +40,7 @@ function Play(props) {
   return (
     <div>
       <h1>Play</h1>
-      <h3>Round: {props.round.id}</h3>
+      <h3>Round: {props.round.round_in_game}</h3>
       <h3>Current score</h3>
       <p>Player: {props.player_state.score}</p>
       <p>Robot: {props.robot_state.score}</p>
@@ -48,6 +49,7 @@ function Play(props) {
       <h2>Remaining Dealer Cards</h2>
       {dealstack}
       <h2>Current Dealer Card</h2>
+      {props.dealerCard}
       <h2>Your Hand</h2>
       {playerCards}
     </div>

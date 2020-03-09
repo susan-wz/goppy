@@ -17,7 +17,8 @@ function SingleGame() {
     dealstack: {},
     cards: {}
   })
-  console.log("STATE", state)
+
+  let dealerCardImg = <img />
 
   useEffect(() => {
     axios.get(`/games/${gameId}`)
@@ -33,9 +34,20 @@ function SingleGame() {
       });
   }, [gameId])
 
-  const startRound = () => {
-    
-  }
+  useEffect(() => {
+    if (state.cards.length > 0) {
+      const remainingCards = Object.keys(state.dealstack).filter(key => state.dealstack[key] === true)
+      const randomCard = remainingCards[Math.floor(Math.random() * remainingCards.length)]
+      const allCardsInDealerSuit = state.cards.filter(card => card.suit === state.dealstack.suit)
+      const dealerCard = allCardsInDealerSuit.find(card => card.value === parseInt(randomCard.slice(5)))
+      dealerCardImg = <img
+        src={dealerCard.img_url}
+        alt={dealerCard.name}
+        height={"90"}
+        key={dealerCard.id} />
+        console.log(dealerCardImg)
+    }
+  }, [state.dealstack, state.cards])
 
   const handleStart = () => {
     Promise.all([
@@ -73,12 +85,13 @@ function SingleGame() {
       <h1>Single Player Game</h1>
       {mode === "loading" && <LoadingCircle />}
       {mode === "ready" && <Button text={"Start"} handleClick={handleStart} />}
-      {mode === "play" && <Play 
-      player_state={state.player_state} 
-      robot_state={state.robot_state} 
-      dealstack={state.dealstack}
-      round={state.round}
-      cards={state.cards} />}
+      {mode === "play" && <Play
+        player_state={state.player_state}
+        robot_state={state.robot_state}
+        dealstack={state.dealstack}
+        round={state.round}
+        cards={state.cards}
+        dealerCard={dealerCardImg} />}
     </div>
   );
 }
