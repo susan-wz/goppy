@@ -14,8 +14,10 @@ function SingleGame() {
     round: {},
     player_state: {},
     robot_state: {},
+    dealstack: {},
     cards: {}
   })
+  console.log("STATE", state)
 
   useEffect(() => {
     axios.get(`/games/${gameId}`)
@@ -44,13 +46,15 @@ function SingleGame() {
       Promise.all([
         axios.post(`/player_states?player_id=1&round_id=${response[1].data.id}&suit=Hearts`),
         axios.post(`/player_states?player_id=2&round_id=${response[1].data.id}&suit=Spades`),
+        axios.post(`/dealstacks?suit=Diamonds&round_id=${response[1].data.id}`),
         axios.get('/cards')
       ]).then(function (response) {
         setState(prev => ({
           ...prev,
           player_state: response[0].data,
           robot_state: response[1].data,
-          cards: response[2].data
+          dealstack: response[2].data,
+          cards: response[3].data
         }))
         transition("play")
       })

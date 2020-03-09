@@ -46,6 +46,6 @@ class DealstacksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def dealstack_params
-      params.fetch(:dealstack, {})
+      params.permit(:round_id, :suit)
     end
 end

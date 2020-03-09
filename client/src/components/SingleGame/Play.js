@@ -10,7 +10,6 @@ function Play(props) {
       src={"https://res.cloudinary.com/susanwz/image/upload/v1583528920/Cards/Yellow_back_dqgro5.jpg"}
       alt={"cards"}
       height={"90"}
-      marginLeft={"-30"}
       key={index} />
   })
 
