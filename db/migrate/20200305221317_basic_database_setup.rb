@@ -51,6 +51,25 @@ class BasicDatabaseSetup < ActiveRecord::Migration[6.0]
       t.timestamps null: false
     end
 
+    create_table :dealstacks do |t|
+      t.integer :round_id, :references => [:rounds, :id]
+      t.string :suit
+      t.boolean :card_1, :default => true
+      t.boolean :card_2, :default => true
+      t.boolean :card_3, :default => true
+      t.boolean :card_4, :default => true
+      t.boolean :card_5, :default => true
+      t.boolean :card_6, :default => true
+      t.boolean :card_7, :default => true
+      t.boolean :card_8, :default => true
+      t.boolean :card_9, :default => true
+      t.boolean :card_10, :default => true
+      t.boolean :card_11, :default => true
+      t.boolean :card_12, :default => true
+      t.boolean :card_13, :default => true
+      t.timestamps null: false
+    end
+
     create_table :cards do |t|
       t.string :name
       t.string :suit

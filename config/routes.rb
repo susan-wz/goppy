@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :dealstacks
   resources :rounds
   resources :player_states
   resources :games

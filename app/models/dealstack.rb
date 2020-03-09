@@ -1,0 +1,2 @@
+class Dealstack < ApplicationRecord
+end
