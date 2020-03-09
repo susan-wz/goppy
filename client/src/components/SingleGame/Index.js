@@ -12,6 +12,7 @@ function SingleGame() {
   const [state, setState] = useState({
     game: {}
   })
+  console.log(state)
 
   useEffect(() => {
     axios.request({
@@ -36,7 +37,10 @@ function SingleGame() {
   }, [gameId])
 
   const handleStart = () => {
-    
+    // set game status to started
+    // create a round
+    // create two player states
+    // pull initial hands from player states into maybe state or maybe just a variable
   }
 
   return (

@@ -19,7 +19,7 @@ function Lobby(props) {
         'Access-Control-Allow-Credentials': true
       },
       params: {
-        game_type_id: 1,
+        gametype_id: 1,
         status: "not started"
       },
       withCredentials: true

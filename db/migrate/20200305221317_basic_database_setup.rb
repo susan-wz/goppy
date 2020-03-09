@@ -33,20 +33,20 @@ class BasicDatabaseSetup < ActiveRecord::Migration[6.0]
       t.integer :round_id, :references => [:rounds, :id]
       t.integer :player_id, :references => [:players, :id]
       t.string :suit
-      t.string :score
-      t.boolean :card_1
-      t.boolean :card_2
-      t.boolean :card_3
-      t.boolean :card_4
-      t.boolean :card_5
-      t.boolean :card_6
-      t.boolean :card_7
-      t.boolean :card_8
-      t.boolean :card_9
-      t.boolean :card_10
-      t.boolean :card_11
-      t.boolean :card_12
-      t.boolean :card_13
+      t.integer :score, :default => 0
+      t.boolean :card_1, :default => true
+      t.boolean :card_2, :default => true
+      t.boolean :card_3, :default => true
+      t.boolean :card_4, :default => true
+      t.boolean :card_5, :default => true
+      t.boolean :card_6, :default => true
+      t.boolean :card_7, :default => true
+      t.boolean :card_8, :default => true
+      t.boolean :card_9, :default => true
+      t.boolean :card_10, :default => true
+      t.boolean :card_11, :default => true
+      t.boolean :card_12, :default => true
+      t.boolean :card_13, :default => true
       t.timestamps null: false
     end
 
