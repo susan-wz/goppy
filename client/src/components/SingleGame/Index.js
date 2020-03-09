@@ -33,7 +33,7 @@ function SingleGame() {
       });
   }, [gameId])
 
-  useEffect(() => {
+  const dealPrizeCard = () => {
     if (state.cards.length > 0) {
       const remainingCards = Object.keys(state.dealstack).filter(key => state.dealstack[key] === true)
       const randomCard = remainingCards[Math.floor(Math.random() * remainingCards.length)]
@@ -43,6 +43,10 @@ function SingleGame() {
         currentDealerCard: allCardsInDealerSuit.find(card => card.value === parseInt(randomCard.slice(5)))
       }))
     }
+  }
+
+  useEffect(() => {
+    dealPrizeCard()
   }, [state.dealstack, state.cards])
 
   const handleStart = () => {
