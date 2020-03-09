@@ -9,6 +9,7 @@ axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Accept'] = 'application/json';
 axios.defaults.headers.common['Access-Control-Allow-Credentials'] = true;
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:3001';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

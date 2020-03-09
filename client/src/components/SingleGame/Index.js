@@ -18,7 +18,7 @@ function SingleGame() {
   })
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/games/${gameId}`)
+    axios.get(`/games/${gameId}`)
       .then(function (response) {
         setState(prev => ({
           ...prev,
@@ -33,8 +33,8 @@ function SingleGame() {
 
   const handleStart = () => {
     Promise.all([
-      axios.patch(`http://localhost:3001/games/${gameId}?status=started`),
-      axios.post(`http://localhost:3001/rounds?game_id=${gameId}`)
+      axios.patch(`/games/${gameId}?status=started`),
+      axios.post(`/rounds?game_id=${gameId}`)
     ]).then(function (response) {
       setState(prev => ({
         ...prev,
@@ -42,9 +42,9 @@ function SingleGame() {
         round: response[1].data
       }))
       Promise.all([
-        axios.post(`http://localhost:3001/player_states?player_id=1&round_id=${response[1].data.id}&suit=Hearts`),
-        axios.post(`http://localhost:3001/player_states?player_id=2&round_id=${response[1].data.id}&suit=Spades`),
-        axios.get('http://localhost:3001/cards')
+        axios.post(`/player_states?player_id=1&round_id=${response[1].data.id}&suit=Hearts`),
+        axios.post(`/player_states?player_id=2&round_id=${response[1].data.id}&suit=Spades`),
+        axios.get('/cards')
       ]).then(function (response) {
         setState(prev => ({
           ...prev,

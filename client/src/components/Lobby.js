@@ -10,7 +10,7 @@ function Lobby(props) {
   let history = useHistory();
 
   const handleSinglePlayer = () => {
-    axios.post(`http://localhost:3001/games?gametype_id=1&status=not_started`)
+    axios.post(`/games?gametype_id=1&status=not_started`)
     .then(function (response) {
       history.push(`/single-player-game/${response.data.id}`)
     })

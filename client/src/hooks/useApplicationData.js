@@ -10,7 +10,7 @@ export default function useApplicationData() {
   })
 
   useEffect(() => {
-    axios.get('http://localhost:3001/gametypes')
+    axios.get('/gametypes')
     .then(function (response) {
       setState(prev => ({
         ...prev, 
