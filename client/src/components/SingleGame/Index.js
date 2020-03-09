@@ -13,7 +13,8 @@ function SingleGame() {
     game: {},
     round: {},
     player_state: {},
-    robot_state: {}
+    robot_state: {},
+    cards: {}
   })
 
   useEffect(() => {
@@ -41,13 +42,15 @@ function SingleGame() {
         round: response[1].data
       }))
       Promise.all([
-        axios.post(`http://localhost:3001/player_states?player_id=1&round_id=${response[1].data.id}&suit=hearts`),
-        axios.post(`http://localhost:3001/player_states?player_id=2&round_id=${response[1].data.id}&suit=spades`)
+        axios.post(`http://localhost:3001/player_states?player_id=1&round_id=${response[1].data.id}&suit=Hearts`),
+        axios.post(`http://localhost:3001/player_states?player_id=2&round_id=${response[1].data.id}&suit=Spades`),
+        axios.get('http://localhost:3001/cards')
       ]).then(function (response) {
         setState(prev => ({
           ...prev,
-          player_state: response[1].data,
-          robot_state: response[0].data
+          player_state: response[0].data,
+          robot_state: response[1].data,
+          cards: response[2].data
         }))
         transition("play")
       })
@@ -62,7 +65,11 @@ function SingleGame() {
       <h1>Single Player Game</h1>
       {mode === "loading" && <LoadingCircle />}
       {mode === "ready" && <Button text={"Start"} handleClick={handleStart} />}
-      {mode === "play" && <Play player_state={state.player_state} robot_state={state.robot_state} round={state.round} />}
+      {mode === "play" && <Play 
+      player_state={state.player_state} 
+      robot_state={state.robot_state} 
+      round={state.round}
+      cards={state.cards} />}
     </div>
   );
 }
