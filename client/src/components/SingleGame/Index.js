@@ -34,13 +34,8 @@ function SingleGame() {
     // create two player states
     // pull initial hands from player states into maybe state or maybe just a variable
     Promise.all([
-    axios.request({
-      url: `http://localhost:3001/games/${gameId}`,
-      method: 'patch',
-      params: {
-        status: "started"
-      }
-    }).then(function (response) {
+    axios.patch(`http://localhost:3001/games/${gameId}?status=started`)
+    .then(function (response) {
       setState(prev => ({
         ...prev, 
         game: response.data
@@ -49,13 +44,8 @@ function SingleGame() {
       .catch(function (error) {
         console.log(error);
       }),
-      axios.request({
-        url: `http://localhost:3001/rounds`,
-        method: 'post',
-        params: {
-          game_id: gameId
-        }
-      }).then(function (response) {
+      axios.post(`http://localhost:3001/rounds?game_id=${gameId}`)
+      .then(function (response) {
         setState(prev => ({
           ...prev, 
           round: response.data
