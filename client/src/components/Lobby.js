@@ -13,16 +13,10 @@ function Lobby(props) {
     axios.request({
       url: 'http://localhost:3001/games',
       method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Credentials': true
-      },
       params: {
         gametype_id: 1,
         status: "not started"
-      },
-      withCredentials: true
+      }
     }).then(function (response) {
       history.push(`/single-player-game/${response.data.id}`)
     })

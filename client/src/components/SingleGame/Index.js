@@ -15,16 +15,8 @@ function SingleGame() {
   console.log(state)
 
   useEffect(() => {
-    axios.request({
-      url: `http://localhost:3001/games/${gameId}`,
-      method: 'get',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Credentials': true
-      },
-      withCredentials: true
-    }).then(function (response) {
+    axios.get(`http://localhost:3001/games/${gameId}`)
+    .then(function (response) {
       setState(prev => ({
         ...prev, 
         game: response.data
@@ -45,15 +37,9 @@ function SingleGame() {
     axios.request({
       url: `http://localhost:3001/games/${gameId}`,
       method: 'patch',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Credentials': true
-      },
       params: {
         status: "started"
-      },
-      withCredentials: true
+      }
     }).then(function (response) {
       setState(prev => ({
         ...prev, 
@@ -66,15 +52,9 @@ function SingleGame() {
       axios.request({
         url: `http://localhost:3001/rounds`,
         method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Access-Control-Allow-Credentials': true
-        },
         params: {
           game_id: gameId
-        },  
-        withCredentials: true
+        }
       }).then(function (response) {
         setState(prev => ({
           ...prev, 

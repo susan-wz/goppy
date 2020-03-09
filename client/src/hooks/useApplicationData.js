@@ -10,16 +10,8 @@ export default function useApplicationData() {
   })
 
   useEffect(() => {
-    axios.request({
-      url: 'http://localhost:3001/gametypes',
-      method: 'get',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Access-Control-Allow-Credentials': true
-      },
-      withCredentials: true
-    }).then(function (response) {
+    axios.get('http://localhost:3001/gametypes')
+    .then(function (response) {
       setState(prev => ({
         ...prev, 
         gameInfo: response.data[0]
