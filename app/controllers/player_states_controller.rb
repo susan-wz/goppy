@@ -46,6 +46,6 @@ class PlayerStatesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def player_state_params
-      params.fetch(:player_state, {})
+      params.permit(:round_id, :player_id)
     end
 end

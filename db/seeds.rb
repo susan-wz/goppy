@@ -9,6 +9,7 @@
 ActiveRecord::Base.transaction do
 
   Player.create(username: "susan", password: "123123", points: 10, player_type: "user")
+  Player.create(username: "robot", password: "123123", points: 10, player_type: "robot")
 
   Gametype.create(
     name: "Gops", 
