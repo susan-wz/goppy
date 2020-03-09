@@ -33,6 +33,10 @@ function SingleGame() {
       });
   }, [gameId])
 
+  const startRound = () => {
+    
+  }
+
   const handleStart = () => {
     Promise.all([
       axios.patch(`/games/${gameId}?status=started`),
@@ -72,6 +76,7 @@ function SingleGame() {
       {mode === "play" && <Play 
       player_state={state.player_state} 
       robot_state={state.robot_state} 
+      dealstack={state.dealstack}
       round={state.round}
       cards={state.cards} />}
     </div>

@@ -13,6 +13,16 @@ function Play(props) {
       key={index} />
   })
 
+  // gets dealstacks
+  const numberOfDealerCards = Object.values(props.dealstack).filter(element => element === true).length
+  const dealstack = [...Array(numberOfDealerCards)].map((x, index) => {
+    return <img
+      src={"https://res.cloudinary.com/susanwz/image/upload/v1583528920/Cards/Red_back_z8c7hz.jpg"}
+      alt={"cards"}
+      height={"90"}
+      key={index} />
+  })
+
   const handleCardClick = () => {
 
   }
@@ -35,6 +45,9 @@ function Play(props) {
       <p>Robot: {props.robot_state.score}</p>
       <h2>Robot Hand</h2>
       {robotCards}
+      <h2>Remaining Dealer Cards</h2>
+      {dealstack}
+      <h2>Current Dealer Card</h2>
       <h2>Your Hand</h2>
       {playerCards}
     </div>
