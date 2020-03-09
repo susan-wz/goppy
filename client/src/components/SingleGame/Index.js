@@ -18,6 +18,7 @@ function SingleGame() {
     cards: {},
     currentDealerCard: {}
   })
+  console.log("STATE", state)
 
   useEffect(() => {
     axios.get(`/games/${gameId}`)
@@ -38,16 +39,21 @@ function SingleGame() {
       const remainingCards = Object.keys(state.dealstack).filter(key => state.dealstack[key] === true)
       const randomCard = remainingCards[Math.floor(Math.random() * remainingCards.length)]
       const allCardsInDealerSuit = state.cards.filter(card => card.suit === state.dealstack.suit)
+      console.log("random card", randomCard)
       setState(prev => ({
         ...prev,
-        currentDealerCard: allCardsInDealerSuit.find(card => card.value === parseInt(randomCard.slice(5)))
+        currentDealerCard: allCardsInDealerSuit.find(card => card.value === parseInt(randomCard.slice(5))),
+        dealstack: {
+          ...prev.dealstack,
+          [randomCard]: false
+        }
       }))
     }
   }
 
   useEffect(() => {
     dealPrizeCard()
-  }, [state.dealstack, state.cards])
+  }, [state.cards])
 
   const handleStart = () => {
     Promise.all([

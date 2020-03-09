@@ -17,7 +17,7 @@ function Play(props) {
   })
 
   // gets dealstacks
-  const numberOfDealerCards = Object.values(props.dealstack).filter(element => element === true).length - 1
+  const numberOfDealerCards = Object.values(props.dealstack).filter(element => element === true).length
   const dealstack = [...Array(numberOfDealerCards)].map((x, index) => {
     return <CardShow
       src={"https://res.cloudinary.com/susanwz/image/upload/v1583528920/Cards/Red_back_z8c7hz.jpg"}
@@ -25,16 +25,17 @@ function Play(props) {
       key={index} />
   })
 
-  const handleCardClick = () => {
+  const handleCardClick = (value) => {
     // indicates the card you've chosen
-    // triggers the robot to respond with a random card and indicates it
+    // triggers the robot to respond with a random card and indicates it. needs to also remove one from the row up top
     const randomCard = robotCards[Math.floor(Math.random() * robotCards.length)]
+    const randomCardValue = parseInt(randomCard.slice(5));
     const allCardsInRobotSuit = props.cards.filter(card => card.suit === props.robot_state.suit)
     setState(prev => ({
       ...prev, 
-      cardRobotPlayed: allCardsInRobotSuit.find(card => card.value === parseInt(randomCard.slice(5)))
+      cardRobotPlayed: allCardsInRobotSuit.find(card => card.value === randomCardValue)
     }))
-    // calculates who won
+    // calculates who won using value and randomCardValue
     // removes both your card and the robot's card from respective hands in the database
     // updates your score
     // updates the robot's score
@@ -48,7 +49,7 @@ function Play(props) {
   })
   const allCardsInPlayerSuit = props.cards.filter(card => card.suit === props.player_state.suit)
   const playerCards = allCardsInPlayerSuit.filter(card => playerCardValues.includes(card.value)).map((card, index) => {
-    return <CardButton src={card.img_url} handleClick={handleCardClick} index={index} />
+    return <CardButton src={card.img_url} handleClick={handleCardClick} index={index} value={card.value} />
   })
 
   const dealerCardImg = <CardShow src={props.dealerCard.img_url} alt={props.dealerCard.name} key={props.dealerCard.id} />

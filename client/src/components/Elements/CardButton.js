@@ -6,7 +6,7 @@ export default function CardButton(props) {
   return (
     <ButtonBase
       key={props.index}
-      onClick={props.handleClick}
+      onClick={() => props.handleClick(props.value)}
     >
       <img
         src={props.src}
