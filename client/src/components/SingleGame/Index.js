@@ -53,7 +53,7 @@ function SingleGame() {
 
   useEffect(() => {
     dealPrizeCard()
-  }, [state.cards])
+  }, [state.cards]) // putting state.dealstack here causes an infinite loop, need solution
 
   const handleStart = () => {
     Promise.all([
@@ -88,19 +88,26 @@ function SingleGame() {
 
   const robotCards = Object.keys(state.robot_state).filter(key => state.robot_state[key] === true)
   const handleCardClick = (value) => {
-    // indicates the card you've chosen
-    // triggers the robot to respond with a random card and indicates it. needs to also remove one from the row up top
+    // indicates the card you've chosen - haven't done this yet, but css
+    // triggers the robot to respond with a random card and indicates it. 
+    // removes both your card and the robot's card from respective hands in the database
     const randomCard = robotCards[Math.floor(Math.random() * robotCards.length)]
     const randomCardValue = parseInt(randomCard.slice(5));
     const allCardsInRobotSuit = state.cards.filter(card => card.suit === state.robot_state.suit)
+    const cardClicked = `card_${value}`;
     setState(prev => ({
       ...prev, 
-      cardRobotPlayed: allCardsInRobotSuit.find(card => card.value === randomCardValue)
+      cardRobotPlayed: allCardsInRobotSuit.find(card => card.value === randomCardValue),
+      robot_state: {
+        ...prev.robot_state,
+        [randomCard]: false
+      },
+      player_state: {
+        ...prev.player_state,
+        [cardClicked]: false
+      }
     }))
-    // console.log("my value", value)
-    // console.log("robot value", randomCardValue)
-    // console.log("win value", state.currentDealerCard.value)
-    // calculates who won using value and randomCardValue
+    // calculates who won using value and randomCardValue and updates score
     if (value > randomCardValue) {
       const newScore = state.player_state.score += state.currentDealerCard.value
       setState(prev => ({
@@ -111,7 +118,7 @@ function SingleGame() {
         }
       }))
     } else if (value === randomCardValue) {
-
+      // no one wins the card right now, might change rules later
     } else {
       const newScore = state.robot_state.score += state.currentDealerCard.value
       setState(prev => ({
@@ -122,10 +129,18 @@ function SingleGame() {
         }
       }))
     }
-    // removes both your card and the robot's card from respective hands in the database
-    // updates your score
-    // updates the robot's score
-    // starts a new round
+    // starts a new round and needs to send data for this round over to backend
+    axios.post('/dealstacks', {
+      params: state.dealstack
+    })
+    const newRoundNumber = state.round.round_in_game += 1
+    // need to send data to round, dealstack, player_states
+    // Promise.all([
+    //   axios.post(`/rounds?game_id=${gameId}?round_in_game=${newRoundNumber}`),
+    //   axios.post('/dealstacks?'),
+    //   axios.post(`/player_states?player_id=1&round_id=${response[1].data.id}&suit=Hearts`),
+    //   axios.post(`/player_states?player_id=2&round_id=${response[1].data.id}&suit=Spades`)
+    // ])
     // triggers dealer to put down a new card
   }
 
