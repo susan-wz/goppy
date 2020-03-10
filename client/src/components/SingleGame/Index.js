@@ -130,10 +130,13 @@ function SingleGame() {
       }))
     }
     // starts a new round and needs to send data for this round over to backend
-    axios.post('/dealstacks', {
-      params: state.dealstack
-    })
+    const { id, updated_at, created_at, ...dealstackParams } = state.dealstack
     const newRoundNumber = state.round.round_in_game += 1
+    axios.request({ 
+      url: '/dealstacks',
+      method: "post",
+      params: {...dealstackParams} 
+    })
     // need to send data to round, dealstack, player_states
     // Promise.all([
     //   axios.post(`/rounds?game_id=${gameId}?round_in_game=${newRoundNumber}`),
