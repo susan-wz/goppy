@@ -3,11 +3,8 @@ import CardButton from '../Elements/CardButton.js';
 import CardShow from '../Elements/CardShow.js';
 
 function Play(props) {
-  const [state, setState] = useState({
-    cardRobotPlayed: {}
-  })
 
-  // gets robot's cards
+  // gets robot's cards - this first line is repetitive now
   const robotCards = Object.keys(props.robot_state).filter(key => props.robot_state[key] === true)
   const robotCardImgs = [...Array(robotCards.length)].map((x, index) => {
     return <CardShow
@@ -25,35 +22,17 @@ function Play(props) {
       key={index} />
   })
 
-  const handleCardClick = (value) => {
-    // indicates the card you've chosen
-    // triggers the robot to respond with a random card and indicates it. needs to also remove one from the row up top
-    const randomCard = robotCards[Math.floor(Math.random() * robotCards.length)]
-    const randomCardValue = parseInt(randomCard.slice(5));
-    const allCardsInRobotSuit = props.cards.filter(card => card.suit === props.robot_state.suit)
-    setState(prev => ({
-      ...prev, 
-      cardRobotPlayed: allCardsInRobotSuit.find(card => card.value === randomCardValue)
-    }))
-    // calculates who won using value and randomCardValue
-    // removes both your card and the robot's card from respective hands in the database
-    // updates your score
-    // updates the robot's score
-    // starts a new round
-    // triggers dealer to put down a new card
-  }
-
   // gets player's cards
   const playerCardValues = Object.keys(props.player_state).filter(key => props.player_state[key] === true).map(card => {
     return parseInt(card.slice(5))
   })
   const allCardsInPlayerSuit = props.cards.filter(card => card.suit === props.player_state.suit)
   const playerCards = allCardsInPlayerSuit.filter(card => playerCardValues.includes(card.value)).map((card, index) => {
-    return <CardButton src={card.img_url} handleClick={handleCardClick} index={index} value={card.value} />
+    return <CardButton src={card.img_url} handleClick={props.handleCardClick} index={index} value={card.value} />
   })
 
   const dealerCardImg = <CardShow src={props.dealerCard.img_url} alt={props.dealerCard.name} key={props.dealerCard.id} />
-  const robotCardImg = <CardShow src={state.cardRobotPlayed.img_url} alt={state.cardRobotPlayed.name} key={state.cardRobotPlayed.id} />
+  const robotCardImg = <CardShow src={props.cardRobotPlayed.img_url} alt={props.cardRobotPlayed.name} key={props.cardRobotPlayed.id} />
 
   return (
     <div>

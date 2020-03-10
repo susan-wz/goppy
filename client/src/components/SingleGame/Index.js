@@ -16,9 +16,10 @@ function SingleGame() {
     robot_state: {},
     dealstack: {},
     cards: {},
-    currentDealerCard: {}
+    currentDealerCard: {},
+    cardRobotPlayed: {}
   })
-  console.log("STATE", state)
+  console.log("state", state)
 
   useEffect(() => {
     axios.get(`/games/${gameId}`)
@@ -39,7 +40,6 @@ function SingleGame() {
       const remainingCards = Object.keys(state.dealstack).filter(key => state.dealstack[key] === true)
       const randomCard = remainingCards[Math.floor(Math.random() * remainingCards.length)]
       const allCardsInDealerSuit = state.cards.filter(card => card.suit === state.dealstack.suit)
-      console.log("random card", randomCard)
       setState(prev => ({
         ...prev,
         currentDealerCard: allCardsInDealerSuit.find(card => card.value === parseInt(randomCard.slice(5))),
@@ -86,6 +86,49 @@ function SingleGame() {
       })
   }
 
+  const robotCards = Object.keys(state.robot_state).filter(key => state.robot_state[key] === true)
+  const handleCardClick = (value) => {
+    // indicates the card you've chosen
+    // triggers the robot to respond with a random card and indicates it. needs to also remove one from the row up top
+    const randomCard = robotCards[Math.floor(Math.random() * robotCards.length)]
+    const randomCardValue = parseInt(randomCard.slice(5));
+    const allCardsInRobotSuit = state.cards.filter(card => card.suit === state.robot_state.suit)
+    setState(prev => ({
+      ...prev, 
+      cardRobotPlayed: allCardsInRobotSuit.find(card => card.value === randomCardValue)
+    }))
+    // console.log("my value", value)
+    // console.log("robot value", randomCardValue)
+    // console.log("win value", state.currentDealerCard.value)
+    // calculates who won using value and randomCardValue
+    if (value > randomCardValue) {
+      const newScore = state.player_state.score += state.currentDealerCard.value
+      setState(prev => ({
+        ...prev, 
+        player_state: {
+          ...prev.player_state,
+          score: newScore
+        }
+      }))
+    } else if (value === randomCardValue) {
+
+    } else {
+      const newScore = state.robot_state.score += state.currentDealerCard.value
+      setState(prev => ({
+        ...prev, 
+        robot_state: {
+          ...prev.robot_state,
+          score: newScore
+        }
+      }))
+    }
+    // removes both your card and the robot's card from respective hands in the database
+    // updates your score
+    // updates the robot's score
+    // starts a new round
+    // triggers dealer to put down a new card
+  }
+
   return (
     <div>
       <h1>Single Player Game</h1>
@@ -97,7 +140,9 @@ function SingleGame() {
         dealstack={state.dealstack}
         round={state.round}
         cards={state.cards}
-        dealerCard={state.currentDealerCard} />}
+        dealerCard={state.currentDealerCard}
+        handleCardClick={handleCardClick}
+        cardRobotPlayed={state.cardRobotPlayed} />}
     </div>
   );
 }
