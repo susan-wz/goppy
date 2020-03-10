@@ -46,6 +46,6 @@ class RoundsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def round_params
-      params.permit(:game_id)
+      params.permit(:game_id, :round_in_game)
     end
 end
