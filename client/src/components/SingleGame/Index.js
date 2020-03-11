@@ -4,7 +4,8 @@ import axios from 'axios';
 import Button from '../Elements/Button';
 import useVisualMode from "../../hooks/useVisualMode.js";
 import LoadingCircle from "../Elements/LoadingCircle.js";
-import Play from "./Play.js"
+import Play from "./Play.js";
+import GameOver from "./GameOver.js";
 
 function SingleGame() {
   const gameId = useLocation().pathname.substring(20)
@@ -36,7 +37,6 @@ function SingleGame() {
       });
   }, [gameId])
 
-  // put game ending in here too. run dealprizecard or ending based on whether or not there's any dealer cards left or when it tries to go to round 14
   useEffect(() => {
     const remainingCards = Object.keys(state.dealstack).filter(key => state.dealstack[key] === true)
     const dealPrizeCard = () => {
@@ -63,7 +63,7 @@ function SingleGame() {
             setState(prev => ({ ...prev, message: `You won!` }))
             // post to player table an extra point for their profile
             Promise.all([
-              axios.put(`/players/${state.player_state.player_id}`), 
+              axios.put(`/players/${state.player_state.player_id}`),
               axios.patch(`/games/${gameId}?winner=${state.player_state.player_id}`)
             ]).catch((error) => console.log(error))
           } else if (state.player_state.score > state.robot_state.score) {
@@ -71,6 +71,7 @@ function SingleGame() {
           } else {
             setState(prev => ({ ...prev, message: `Your opponent won` }))
           }
+          setTimeout(() => transition("gameover", 2000))
         })
         .catch((error) => console.log(error))
     }
@@ -221,6 +222,7 @@ function SingleGame() {
         handleCardClick={handleCardClick}
         cardRobotPlayed={state.cardRobotPlayed}
         message={state.message} />}
+      {mode === "gameover" && <GameOver />}
     </div>
   );
 }
