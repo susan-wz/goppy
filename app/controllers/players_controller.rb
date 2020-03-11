@@ -26,7 +26,8 @@ class PlayersController < ApplicationController
 
   # PATCH/PUT /players/1
   def update
-    if @player.update(player_params)
+    if @player.points += 1
+      @player.save
       render json: @player
     else
       render json: @player.errors, status: :unprocessable_entity

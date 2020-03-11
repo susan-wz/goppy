@@ -57,8 +57,11 @@ function SingleGame() {
     }
 
     const endGame = () => {
+      axios.patch(`/games/${gameId}?status=ended`).catch((error) => console.log(error))
       if (state.player_state.score > state.robot_state.score) {
         setState(prev => ({ ...prev, message: `You won!` }))
+        // post to player table an extra point for their profile
+        axios.put('/players/1').catch((error) => console.log(error))
       } else if (state.player_state.score > state.robot_state.score) {
         setState(prev => ({ ...prev, message: `You and your opponent tied` }))
       } else {
