@@ -17,7 +17,8 @@ function SingleGame() {
     dealstack: {},
     cards: {},
     currentDealerCard: {},
-    cardRobotPlayed: {}
+    cardRobotPlayed: {},
+    message: ""
   })
   console.log("state", state)
 
@@ -47,7 +48,9 @@ function SingleGame() {
           dealstack: {
             ...prev.dealstack,
             [randomCard]: false
-          }
+          },
+          cardRobotPlayed: {},
+          message: ""
         }))
       }
     }
@@ -141,6 +144,10 @@ function SingleGame() {
       }
     }))
     // calculates who won using value and randomCardValue and updates score
+    let plural = ""
+    if (state.currentDealerCard.value !== 1) {
+      plural = "s"
+    }
     if (value > randomCardValue) {
       const newScore = state.player_state.score += state.currentDealerCard.value
       setState(prev => ({
@@ -148,18 +155,24 @@ function SingleGame() {
         player_state: {
           ...prev.player_state,
           score: newScore
-        }
+        },
+        message: `You won ${state.currentDealerCard.value} point${plural}!`
       }))
     } else if (value === randomCardValue) {
       // no one wins the card right now, might change rules later
+      setState(prev => ({
+        ...prev,
+        message: `You and your appointment tied; no one gets points`
+      }))
     } else {
       const newScore = state.robot_state.score += state.currentDealerCard.value
       setState(prev => ({
         ...prev,
         robot_state: {
           ...prev.robot_state,
-          score: newScore
-        }
+          score: newScore,
+        },
+        message: `Your opponent won ${state.currentDealerCard.value} point${plural}!`
       }))
     }
     // starts a new round
@@ -179,7 +192,8 @@ function SingleGame() {
         cards={state.cards}
         dealerCard={state.currentDealerCard}
         handleCardClick={handleCardClick}
-        cardRobotPlayed={state.cardRobotPlayed} />}
+        cardRobotPlayed={state.cardRobotPlayed}
+        message={state.message} />}
     </div>
   );
 }

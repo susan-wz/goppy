@@ -49,6 +49,7 @@ function Play(props) {
       {dealerCardImg}
       <h2>Card Robot Played</h2>
       {robotCardImg}
+      <p>{props.message}</p>
       <h2>Your Hand</h2>
       {playerCards}
     </div>
