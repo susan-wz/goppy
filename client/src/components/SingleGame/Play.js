@@ -36,7 +36,6 @@ function Play(props) {
 
   return (
     <div>
-      <h1>Play</h1>
       <h3>Round: {props.round.round_in_game}</h3>
       <h3>Current score</h3>
       <p>Player: {props.player_state.score}</p>

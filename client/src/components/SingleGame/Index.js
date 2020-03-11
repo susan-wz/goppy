@@ -36,10 +36,11 @@ function SingleGame() {
       });
   }, [gameId])
 
+  // put game ending in here too. run dealprizecard or ending based on whether or not there's any dealer cards left or when it tries to go to round 14
   useEffect(() => {
+    const remainingCards = Object.keys(state.dealstack).filter(key => state.dealstack[key] === true)
     const dealPrizeCard = () => {
       if (state.cards.length > 0) {
-        const remainingCards = Object.keys(state.dealstack).filter(key => state.dealstack[key] === true)
         const randomCard = remainingCards[Math.floor(Math.random() * remainingCards.length)]
         const allCardsInDealerSuit = state.cards.filter(card => card.suit === state.dealstack.suit)
         setState(prev => ({
@@ -54,7 +55,24 @@ function SingleGame() {
         }))
       }
     }
-    setTimeout(() => dealPrizeCard(), 2000)
+
+    const endGame = () => {
+      if (state.player_state.score > state.robot_state.score) {
+        setState(prev => ({ ...prev, message: `You won!` }))
+      } else if (state.player_state.score > state.robot_state.score) {
+        setState(prev => ({ ...prev, message: `You and your opponent tied` }))
+      } else {
+        setState(prev => ({ ...prev, message: `Your opponent won` }))
+      }
+    }
+
+    setTimeout(() => {
+      if (remainingCards.length > 0) {
+        dealPrizeCard()
+      } else {
+        endGame()
+      }
+    }, 2000)
   }, [state.round, state.cards])
 
   useEffect(() => {
