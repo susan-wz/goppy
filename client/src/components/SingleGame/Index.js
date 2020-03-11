@@ -20,7 +20,7 @@ function SingleGame() {
     cardRobotPlayed: {},
     message: ""
   })
-  console.log("state", state)
+  // console.log("state", state)
 
   useEffect(() => {
     axios.get(`/games/${gameId}`)
@@ -63,7 +63,6 @@ function SingleGame() {
         setState(prev => ({ ...prev, message: `You and your opponent tied` }))
       } else {
         setState(prev => ({ ...prev, message: `Your opponent won` }))
-        console.log("state when the message comes up", state)
       }
     }
 
