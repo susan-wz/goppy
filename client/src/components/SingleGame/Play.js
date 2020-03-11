@@ -36,7 +36,7 @@ function Play(props) {
 
   return (
     <div>
-      <h3>Round: {props.round.round_in_game}</h3>
+      { props.round.round_in_game === 14 ? <h3></h3> : <h3>Round: {props.round.round_in_game}</h3>}
       <h3>Current score</h3>
       <p>Player: {props.player_state.score}</p>
       <p>Robot: {props.robot_state.score}</p>

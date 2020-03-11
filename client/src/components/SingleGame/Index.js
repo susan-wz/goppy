@@ -81,7 +81,7 @@ function SingleGame() {
       } else if (Object.keys(state.dealstack).length > 0) {
         endGame()
       }
-    }, 2000)
+    }, 1000)
   }, [state.round, state.cards])
 
   useEffect(() => {
