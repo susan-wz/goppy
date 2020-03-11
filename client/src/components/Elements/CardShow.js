@@ -7,7 +7,7 @@ export default function CardButton(props) {
       key={props.key}
       src={props.src}
       alt={props.alt}
-      height={"100"}
+      height={"80"}
     />
   );
 }

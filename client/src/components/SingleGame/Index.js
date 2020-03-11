@@ -52,7 +52,7 @@ function SingleGame() {
       }
     }
     dealPrizeCard()
-  }, [state.cards])
+  }, [state.round, state.cards])
 
   useEffect(() => {
     const sendRoundData = () => {

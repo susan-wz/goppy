@@ -11,7 +11,7 @@ export default function CardButton(props) {
       <img
         src={props.src}
         alt={"cards"}
-        height={"100"}
+        height={"80"}
       />
     </ButtonBase>
   );
