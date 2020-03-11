@@ -69,6 +69,10 @@ function SingleGame() {
             dealstackParams.round_id = response.data.id
             playerStateParams.round_id = response.data.id
             robotStateParams.round_id = response.data.id
+            setState(prev => ({
+              ...prev,
+              round: response.data
+            }))
             Promise.all([
               axios.request({ url: '/dealstacks', method: "post", params: { ...dealstackParams } }),
               axios.request({ url: '/player_states', method: "post", params: { ...playerStateParams } }),
