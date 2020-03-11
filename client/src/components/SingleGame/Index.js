@@ -63,13 +63,14 @@ function SingleGame() {
         setState(prev => ({ ...prev, message: `You and your opponent tied` }))
       } else {
         setState(prev => ({ ...prev, message: `Your opponent won` }))
+        console.log("state when the message comes up", state)
       }
     }
 
     setTimeout(() => {
       if (remainingCards.length > 0) {
         dealPrizeCard()
-      } else {
+      } else if (Object.keys(state.dealstack).length > 0) {
         endGame()
       }
     }, 2000)
