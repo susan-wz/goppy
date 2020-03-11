@@ -56,7 +56,7 @@ function SingleGame() {
 
   useEffect(() => {
     const sendRoundData = () => {
-      if (Object.keys(state.player_state).length > 0) {
+      if (Object.keys(state.player_state).length > 0 && Object.keys(state.cardRobotPlayed).length > 0) {
         const newRoundNumber = state.round.round_in_game + 1
         axios.post(`rounds?game_id=${state.game.id}&round_in_game=${newRoundNumber}`)
           .then((function (response) {
