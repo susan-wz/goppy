@@ -20,7 +20,7 @@ function SingleGame() {
     cardRobotPlayed: {},
     message: ""
   })
-  // console.log("state", state)
+  console.log("state", state)
 
   useEffect(() => {
     axios.get(`/games/${gameId}`)
@@ -57,16 +57,22 @@ function SingleGame() {
     }
 
     const endGame = () => {
-      axios.patch(`/games/${gameId}?status=ended`).catch((error) => console.log(error))
-      if (state.player_state.score > state.robot_state.score) {
-        setState(prev => ({ ...prev, message: `You won!` }))
-        // post to player table an extra point for their profile
-        axios.put('/players/1').catch((error) => console.log(error))
-      } else if (state.player_state.score > state.robot_state.score) {
-        setState(prev => ({ ...prev, message: `You and your opponent tied` }))
-      } else {
-        setState(prev => ({ ...prev, message: `Your opponent won` }))
-      }
+      axios.patch(`/games/${gameId}?status=ended`)
+        .then(() => {
+          if (state.player_state.score > state.robot_state.score) {
+            setState(prev => ({ ...prev, message: `You won!` }))
+            // post to player table an extra point for their profile
+            Promise.all([
+              axios.put(`/players/${state.player_state.player_id}`), 
+              axios.patch(`/games/${gameId}?winner=${state.player_state.player_id}`)
+            ]).catch((error) => console.log(error))
+          } else if (state.player_state.score > state.robot_state.score) {
+            setState(prev => ({ ...prev, message: `You and your opponent tied` }))
+          } else {
+            setState(prev => ({ ...prev, message: `Your opponent won` }))
+          }
+        })
+        .catch((error) => console.log(error))
     }
 
     setTimeout(() => {
