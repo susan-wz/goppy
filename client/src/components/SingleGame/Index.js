@@ -35,54 +35,52 @@ function SingleGame() {
       });
   }, [gameId])
 
-  const dealPrizeCard = () => {
-    if (state.cards.length > 0) {
-      const remainingCards = Object.keys(state.dealstack).filter(key => state.dealstack[key] === true)
-      const randomCard = remainingCards[Math.floor(Math.random() * remainingCards.length)]
-      const allCardsInDealerSuit = state.cards.filter(card => card.suit === state.dealstack.suit)
-      setState(prev => ({
-        ...prev,
-        currentDealerCard: allCardsInDealerSuit.find(card => card.value === parseInt(randomCard.slice(5))),
-        dealstack: {
-          ...prev.dealstack,
-          [randomCard]: false
-        }
-      }))
-    }
-  }
-
-  const sendRoundData = () => {
-    if (state.round.round_in_game > 0) {
-      const newRoundNumber = state.round.round_in_game + 1
-      axios.post(`rounds?game_id=${state.game.id}&round_in_game=${newRoundNumber}`)
-        .then((function (response) {
-          const fieldToRemove1 = "id";
-          const fieldToRemove2 = "updated_at";
-          const fieldToRemove3 = "created_at";
-          const { [fieldToRemove1]: removed1, [fieldToRemove2]: removed2, [fieldToRemove3]: removed3, ...dealstackParams } = state.dealstack
-          const { [fieldToRemove1]: removed4, [fieldToRemove2]: removed5, [fieldToRemove3]: removed6, ...playerStateParams } = state.player_state
-          const { [fieldToRemove1]: removed7, [fieldToRemove2]: removed8, [fieldToRemove3]: removed9, ...robotStateParams } = state.robot_state
-          dealstackParams.round_id = response.data.id
-          playerStateParams.round_id = response.data.id
-          robotStateParams.round_id = response.data.id
-          Promise.all([
-            axios.request({ url: '/dealstacks', method: "post", params: { ...dealstackParams } }),
-            axios.request({ url: '/player_states', method: "post", params: { ...playerStateParams } }),
-            axios.request({ url: '/player_states', method: "post", params: { ...robotStateParams } })
-          ]).then((function (response) {
-            // nothing happens here ok
-          })).catch((function (error) {
-            console.log(error)
-          }))
+  useEffect(() => {
+    const dealPrizeCard = () => {
+      if (state.cards.length > 0) {
+        const remainingCards = Object.keys(state.dealstack).filter(key => state.dealstack[key] === true)
+        const randomCard = remainingCards[Math.floor(Math.random() * remainingCards.length)]
+        const allCardsInDealerSuit = state.cards.filter(card => card.suit === state.dealstack.suit)
+        setState(prev => ({
+          ...prev,
+          currentDealerCard: allCardsInDealerSuit.find(card => card.value === parseInt(randomCard.slice(5))),
+          dealstack: {
+            ...prev.dealstack,
+            [randomCard]: false
+          }
         }))
+      }
     }
-  }
-
-  useEffect(() => {
     dealPrizeCard()
-  }, [state.cards]) // putting state.dealstack here causes an infinite loop, need solution
+  }, [state.cards])
 
   useEffect(() => {
+    const sendRoundData = () => {
+      if (Object.keys(state.player_state).length > 0) {
+        const newRoundNumber = state.round.round_in_game + 1
+        axios.post(`rounds?game_id=${state.game.id}&round_in_game=${newRoundNumber}`)
+          .then((function (response) {
+            const fieldToRemove1 = "id";
+            const fieldToRemove2 = "updated_at";
+            const fieldToRemove3 = "created_at";
+            const { [fieldToRemove1]: removed1, [fieldToRemove2]: removed2, [fieldToRemove3]: removed3, ...dealstackParams } = state.dealstack
+            const { [fieldToRemove1]: removed4, [fieldToRemove2]: removed5, [fieldToRemove3]: removed6, ...playerStateParams } = state.player_state
+            const { [fieldToRemove1]: removed7, [fieldToRemove2]: removed8, [fieldToRemove3]: removed9, ...robotStateParams } = state.robot_state
+            dealstackParams.round_id = response.data.id
+            playerStateParams.round_id = response.data.id
+            robotStateParams.round_id = response.data.id
+            Promise.all([
+              axios.request({ url: '/dealstacks', method: "post", params: { ...dealstackParams } }),
+              axios.request({ url: '/player_states', method: "post", params: { ...playerStateParams } }),
+              axios.request({ url: '/player_states', method: "post", params: { ...robotStateParams } })
+            ]).then((function (response) {
+              // nothing happens here ok
+            })).catch((function (error) {
+              console.log(error)
+            }))
+          }))
+      }
+    }
     sendRoundData()
   }, [state.player_state])
 
