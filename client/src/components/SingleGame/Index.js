@@ -51,7 +51,7 @@ function SingleGame() {
         }))
       }
     }
-    dealPrizeCard()
+    setTimeout(() => dealPrizeCard(), 2000)
   }, [state.round, state.cards])
 
   useEffect(() => {
