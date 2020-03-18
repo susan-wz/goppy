@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Luckiest Guy';
+  src: url(../fonts/Luckiest_Guy/LuckiestGuy-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url(../fonts/Rubik/Rubik-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Rubik';
+  font-weight: 500;
+  src: url(../fonts/Rubik/Rubik-Medium.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Rubik';
+  font-weight: 700;
+  src: url(../fonts/Rubik/Rubik-Bold.ttf) format('truetype');
+}

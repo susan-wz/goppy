@@ -47,10 +47,11 @@ function Lobby(props) {
       <Title />
       <CenterMain>
         <CenterDiv>
-          <h2>Description</h2>
+          <h2>What's Goppy?</h2>
           <p>{props.gameInfo.description}</p>
-          <h2>Tutorial</h2>
+          <h2>How to Play</h2>
           <p>{props.gameInfo.tutorial}</p>
+          <h2>Play</h2>
           <Button text={"Single-Player"} handleClick={handleSinglePlayer} />
           <Button text={"Multi-Player"} handleClick={handleMultiPlayer} />
           <Menu

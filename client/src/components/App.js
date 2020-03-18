@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import useApplicationData from '../hooks/useApplicationData';
 import Logo from './Elements/Logo.js';
+import './App.css';
 
 function App() {
   const { state, links } = useApplicationData();
