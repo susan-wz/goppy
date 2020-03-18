@@ -8,7 +8,7 @@ const CenterDiv = styled.div`
 `;
 
 const TitleText = styled.h1`
-  height: 6rem;
+  font-size: 3rem;
   position: fixed;
   font-family: 'Luckiest Guy', cursive;
 `;

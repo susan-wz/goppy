@@ -18,6 +18,13 @@ const CenterDiv = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0px 14px 28px rgba(0,0,0,0.25), 0px 10px 10px rgba(0,0,0,0.22);
+`;
+
+const ButtonDiv = styled.div`
+  display: flex;
 `;
 
 function Lobby(props) {
@@ -52,18 +59,20 @@ function Lobby(props) {
           <h2>How to Play</h2>
           <p>{props.gameInfo.tutorial}</p>
           <h2>Play</h2>
-          <Button text={"Single-Player"} handleClick={handleSinglePlayer} />
-          <Button text={"Multi-Player"} handleClick={handleMultiPlayer} />
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleClose}>Join Multi-Player Game</MenuItem>
-            <MenuItem onClick={handleClose}>Create New Multi-Player Game</MenuItem>
-          </Menu>
+          <ButtonDiv>
+            <Button text={"Single-Player"} handleClick={handleSinglePlayer} />
+            <Button text={"Multi-Player"} handleClick={handleMultiPlayer} />
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>Join Multi-Player Game</MenuItem>
+              <MenuItem onClick={handleClose}>Create New Multi-Player Game</MenuItem>
+            </Menu>
+          </ButtonDiv>
         </CenterDiv>
       </CenterMain>
     </div>

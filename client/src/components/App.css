@@ -19,3 +19,11 @@
   font-weight: 700;
   src: url(../fonts/Rubik/Rubik-Bold.ttf) format('truetype');
 }
+
+body {
+  color: #f2f2f2;
+  font-size: 1.25rem;
+  background-color: #002b0f;
+  background-image: url("https://www.transparenttextures.com/patterns/60-lines.png");
+  font-family: 'Rubik', sans-serif;
+}
