@@ -75,6 +75,7 @@ function Play(props) {
 
   const dealerCardImg = <CardShow src={props.dealerCard.img_url} alt={props.dealerCard.name} key={props.dealerCard.id} />
   const robotCardImg = <CardShow src={props.cardRobotPlayed.img_url} alt={props.cardRobotPlayed.name} key={props.cardRobotPlayed.id} />
+  const playerCardImg = <CardShow src={props.cardPlayerPlayed.img_url} alt={props.cardPlayerPlayed.name} key={props.cardPlayerPlayed.id} />
 
   return (
     <div>
@@ -103,7 +104,9 @@ function Play(props) {
           {dealerCardImg}
           <h4>Prize Card</h4>
         </TableSection>
-        <TableSection></TableSection>
+        <TableSection>
+          {playerCardImg}
+        </TableSection>
       </Table>
       <p>{props.message}</p>
       <h2>Your Hand</h2>

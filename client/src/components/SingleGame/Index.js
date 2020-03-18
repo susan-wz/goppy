@@ -33,10 +33,12 @@ function SingleGame() {
     cards: {},
     currentDealerCard: {},
     cardRobotPlayed: {},
+    cardPlayerPlayed: {},
     message: ""
   })
   console.log("state", state)
 
+  // runs before game starts to initialise a game
   useEffect(() => {
     axios.get(`/games/${gameId}`)
       .then(function (response) {
@@ -51,6 +53,7 @@ function SingleGame() {
       });
   }, [gameId])
 
+  // runs when state is change to deal a new prize card or end the game if there's no prize cards left
   useEffect(() => {
     const remainingCards = Object.keys(state.dealstack).filter(key => state.dealstack[key] === true)
     const dealPrizeCard = () => {
@@ -65,6 +68,7 @@ function SingleGame() {
             [randomCard]: false
           },
           cardRobotPlayed: {},
+          cardPlayerPlayed: {},
           message: ""
         }))
       }
@@ -99,6 +103,7 @@ function SingleGame() {
     }, 1000)
   }, [state.round, state.cards])
 
+  // runs each round to send data to the backend
   useEffect(() => {
     const sendRoundData = () => {
       if (Object.keys(state.player_state).length > 0 && Object.keys(state.cardRobotPlayed).length > 0) {
@@ -133,6 +138,7 @@ function SingleGame() {
     sendRoundData()
   }, [state.player_state])
 
+  // runs when the initial start button is pressed to initialise game variables
   const handleStart = () => {
     Promise.all([
       axios.patch(`/games/${gameId}?status=started`),
@@ -172,10 +178,12 @@ function SingleGame() {
     const randomCard = robotCards[Math.floor(Math.random() * robotCards.length)]
     const randomCardValue = parseInt(randomCard.slice(5));
     const allCardsInRobotSuit = state.cards.filter(card => card.suit === state.robot_state.suit)
+    const allCardsInPlayerSuit = state.cards.filter(card => card.suit === state.player_state.suit)
     const cardClicked = `card_${value}`;
     setState(prev => ({
       ...prev,
       cardRobotPlayed: allCardsInRobotSuit.find(card => card.value === randomCardValue),
+      cardPlayerPlayed: allCardsInPlayerSuit.find(card => card.value === value),
       robot_state: {
         ...prev.robot_state,
         [randomCard]: false
@@ -217,8 +225,7 @@ function SingleGame() {
         message: `Your opponent won ${state.currentDealerCard.value} point${plural}!`
       }))
     }
-    // starts a new round
-    // triggers dealer to put down a new card
+    // starts a new round and triggers dealer to put down a new card with useEffect
   }
 
   return (
@@ -237,6 +244,7 @@ function SingleGame() {
             dealerCard={state.currentDealerCard}
             handleCardClick={handleCardClick}
             cardRobotPlayed={state.cardRobotPlayed}
+            cardPlayerPlayed={state.cardPlayerPlayed}
             message={state.message} />}
           {mode === "gameover" && <GameOver />}
         </CenterDiv>
