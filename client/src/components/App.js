@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import useApplicationData from '../hooks/useApplicationData';
+import Logo from './Elements/Logo.js';
 
 function App() {
   const { state, links } = useApplicationData();
@@ -16,7 +17,7 @@ function App() {
 
   return (
     <div>
-      <h1>goppy</h1>
+      <Logo />
       <Router>
         <Switch>
           <Route exact path="/">

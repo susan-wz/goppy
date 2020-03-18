@@ -11,9 +11,9 @@ function Lobby(props) {
 
   const handleSinglePlayer = () => {
     axios.post(`/games?gametype_id=1&status=not_started`)
-    .then(function (response) {
-      history.push(`/single-player-game/${response.data.id}`)
-    })
+      .then(function (response) {
+        history.push(`/single-player-game/${response.data.id}`)
+      })
       .catch(function (error) {
         console.log(error);
       });
@@ -29,6 +29,7 @@ function Lobby(props) {
 
   return (
     <div>
+      <h1>goppy</h1>
       <h1>Lobby</h1>
       <h2>Description</h2>
       <p>{props.gameInfo.description}</p>
