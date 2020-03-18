@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import useApplicationData from '../hooks/useApplicationData';
 import Logo from './Elements/Logo.js';
@@ -23,7 +22,7 @@ function App() {
           <Route exact path="/">
             <Redirect to="/lobby" />
           </Route>
-          {routes}
+            {routes}
         </Switch>
       </Router>
     </div>
