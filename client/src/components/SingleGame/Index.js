@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, useLocation } from "react-router";
 import axios from 'axios';
-import Button from '../Elements/Button';
 import useVisualMode from "../../hooks/useVisualMode.js";
 import LoadingCircle from "../Elements/LoadingCircle.js";
 import Play from "./Play.js";
