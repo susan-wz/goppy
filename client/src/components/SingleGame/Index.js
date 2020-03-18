@@ -5,6 +5,7 @@ import Button from '../Elements/Button';
 import useVisualMode from "../../hooks/useVisualMode.js";
 import LoadingCircle from "../Elements/LoadingCircle.js";
 import Play from "./Play.js";
+import Ready from "./Ready.js";
 import GameOver from "./GameOver.js";
 import styled from 'styled-components'
 
@@ -227,7 +228,7 @@ function SingleGame() {
         <CenterDiv>
           <h1>Single Player Game</h1>
           {mode === "loading" && <LoadingCircle />}
-          {mode === "ready" && <Button text={"Start"} handleClick={handleStart} />}
+          {mode === "ready" && <Ready handleStart={handleStart} />}
           {mode === "play" && <Play
             player_state={state.player_state}
             robot_state={state.robot_state}
