@@ -18,13 +18,30 @@ const ScoreDiv = styled.div`
   };
 `;
 
+const TopDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const RobotDiv = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const CardsDiv = styled.div`
   display: inline-flex;
   flex-direction: row-reverse;
   padding-left:50px;
+`;
+
+const Table = styled.div`
+  border: 1px solid white;
+  border-radius: 10px;
+`;
+
+const TableSection = styled.div`
+  display: flex;
+  height: 8rem;
 `;
 
 function Play(props) {
@@ -61,25 +78,33 @@ function Play(props) {
 
   return (
     <div>
-      <ScoreDiv>
-        {props.round.round_in_game === 14 ? <h3></h3> : <h3>Round: {props.round.round_in_game}</h3>}
-        <p>Your Score: {props.player_state.score}</p>
-        <p>Mr. Robot's Score: {props.robot_state.score}</p>
-      </ScoreDiv>
-      <RobotDiv>
-        <PlayerIcon name={"Mr. Robot"} />
-        <CardsDiv>
-          {robotCardImgs}
-        </CardsDiv>
-      </RobotDiv>
-      <h2>Remaining Dealer Cards</h2>
-      <CardsDiv>
-        {dealstack}
-      </CardsDiv>
-      <h2>Current Dealer Card</h2>
-      {dealerCardImg}
-      <h2>Card Robot Played</h2>
-      {robotCardImg}
+      <TopDiv>
+        <RobotDiv>
+          <PlayerIcon name={"Mr. Robot"} />
+          <CardsDiv>
+            {robotCardImgs}
+          </CardsDiv>
+        </RobotDiv>
+        <ScoreDiv>
+          {props.round.round_in_game === 14 ? <h3></h3> : <h3>Round: {props.round.round_in_game}</h3>}
+          <p>Your Score: {props.player_state.score}</p>
+          <p>Mr. Robot's Score: {props.robot_state.score}</p>
+        </ScoreDiv>
+      </TopDiv>
+      <Table>
+        <TableSection>
+          <h4>Card Robot Played</h4>
+          {robotCardImg}
+        </TableSection>
+        <TableSection>
+          <CardsDiv>
+            {dealstack}
+          </CardsDiv>
+          {dealerCardImg}
+          <h4>Prize Card</h4>
+        </TableSection>
+        <TableSection></TableSection>
+      </Table>
       <p>{props.message}</p>
       <h2>Your Hand</h2>
       {playerCards}
