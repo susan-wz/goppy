@@ -6,6 +6,20 @@ import useVisualMode from "../../hooks/useVisualMode.js";
 import LoadingCircle from "../Elements/LoadingCircle.js";
 import Play from "./Play.js";
 import GameOver from "./GameOver.js";
+import styled from 'styled-components'
+
+const CenterMain = styled.main`
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+`;
+
+const CenterDiv = styled.div`
+  width: 80vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
 
 function SingleGame() {
   const gameId = useLocation().pathname.substring(20)
@@ -209,20 +223,24 @@ function SingleGame() {
 
   return (
     <div>
-      <h1>Single Player Game</h1>
-      {mode === "loading" && <LoadingCircle />}
-      {mode === "ready" && <Button text={"Start"} handleClick={handleStart} />}
-      {mode === "play" && <Play
-        player_state={state.player_state}
-        robot_state={state.robot_state}
-        dealstack={state.dealstack}
-        round={state.round}
-        cards={state.cards}
-        dealerCard={state.currentDealerCard}
-        handleCardClick={handleCardClick}
-        cardRobotPlayed={state.cardRobotPlayed}
-        message={state.message} />}
-      {mode === "gameover" && <GameOver />}
+      <CenterMain>
+        <CenterDiv>
+          <h1>Single Player Game</h1>
+          {mode === "loading" && <LoadingCircle />}
+          {mode === "ready" && <Button text={"Start"} handleClick={handleStart} />}
+          {mode === "play" && <Play
+            player_state={state.player_state}
+            robot_state={state.robot_state}
+            dealstack={state.dealstack}
+            round={state.round}
+            cards={state.cards}
+            dealerCard={state.currentDealerCard}
+            handleCardClick={handleCardClick}
+            cardRobotPlayed={state.cardRobotPlayed}
+            message={state.message} />}
+          {mode === "gameover" && <GameOver />}
+        </CenterDiv>
+      </CenterMain>
     </div>
   );
 }

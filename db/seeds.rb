@@ -13,8 +13,8 @@ ActiveRecord::Base.transaction do
 
   Gametype.create(
     name: "Gops", 
-    description: "Goofspiel, also known as The Game of Pure Strategy or GOPS, is a card game for two or more players.", 
-    tutorial: "Goofspiel is played using cards from a standard deck of cards, and is typically a two-player game, although more players are possible. Each suit is ranked A (low), 2, ..., 10, J, Q, K (high).", 
+    description: "Goppy is an online version of Goofspiel, also known as The Game of Pure Strategy or GOPS. It's a simple card game for two or more players. You can learn Goppy very quickly, but thinking up a winning strategy is a different story!", 
+    tutorial: "At the start of every game, each player will receive a full set of one suit of cards. The dealer will also start with a full suit. Each suit is ranked A (low), 2, ..., 10, J, Q, K (high) for both prizes and bets. \nGoppy is a turn-based game. Each turn, the dealer will reveal one card - this is the prize card that each player will 'bet' on. Players will reveal their bets at the same time, and the player with the highest bet wins the prize card. At the end of the game, the player who has won the most points, wins!", 
     min_players: 2, 
     max_players: 4
   )
