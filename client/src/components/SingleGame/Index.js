@@ -245,6 +245,7 @@ function SingleGame() {
   }
 
   const restartGame = () => {
+    transition("ready")
     setState(() => ({
       game: {},
       round: {},
@@ -260,7 +261,6 @@ function SingleGame() {
     axios.post(`/games?gametype_id=1&status=not_started`)
     .then(function (response) {
       history.push(`/single-player-game/${response.data.id}`)
-      transition("ready")
     })
     .catch(function (error) {
       console.log(error);

@@ -19,6 +19,8 @@ function GameOver(props) {
   useEffect(() => {
     if (props.game.status === "ended") {
       setOpen(true);
+    } else {
+      setOpen(false);
     }
   }, [props.game])
 
