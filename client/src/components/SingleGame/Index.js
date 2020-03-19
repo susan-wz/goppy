@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, useLocation } from "react-router";
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import useVisualMode from "../../hooks/useVisualMode.js";
 import LoadingCircle from "../Elements/LoadingCircle.js";
@@ -8,6 +9,7 @@ import Play from "./Play.js";
 import Ready from "./Ready.js";
 import GameOver from "./GameOver.js";
 import styled from 'styled-components';
+import Confetti from '../Elements/Confetti.js';
 
 const CenterMain = styled.main`
   margin-top: 1rem;
@@ -23,6 +25,7 @@ const CenterDiv = styled.div`
 `;
 
 function SingleGame() {
+  let history = useHistory();
   const gameId = useLocation().pathname.substring(20)
   const { mode, transition } = useVisualMode("loading");
   const [state, setState] = useState({
@@ -35,9 +38,10 @@ function SingleGame() {
     currentDealerCard: {},
     cardRobotPlayed: {},
     cardPlayerPlayed: {},
-    message: ""
+    message: "",
   })
   console.log("state", state)
+  console.log("mode", mode)
 
   // runs before game starts to initialise a game
   useEffect(() => {
@@ -77,20 +81,31 @@ function SingleGame() {
 
     const endGame = () => {
       axios.patch(`/games/${gameId}?status=ended`)
-        .then(() => {
+        .then(function (response) {
           if (state.player_state.score > state.robot_state.score) {
-            setState(prev => ({ ...prev, message: `You won!` }))
+            setState(prev => ({
+              ...prev,
+              game: response.data,
+              message: `You won!`
+            }))
             // post to player table an extra point for their profile
             Promise.all([
               axios.put(`/players/${state.player_state.player_id}`),
               axios.patch(`/games/${gameId}?winner=${state.player_state.player_id}`)
             ]).catch((error) => console.log(error))
           } else if (state.player_state.score > state.robot_state.score) {
-            setState(prev => ({ ...prev, message: `You and your opponent tied` }))
+            setState(prev => ({
+              ...prev,
+              game: response.data,
+              message: `You and your opponent tied`
+            }))
           } else {
-            setState(prev => ({ ...prev, message: `Your opponent won` }))
+            setState(prev => ({
+              ...prev,
+              game: response.data,
+              message: `Your opponent won`
+            }))
           }
-          setTimeout(() => transition("gameover", 2000))
         })
         .catch((error) => console.log(error))
     }
@@ -229,6 +244,29 @@ function SingleGame() {
     // starts a new round and triggers dealer to put down a new card with useEffect
   }
 
+  const restartGame = () => {
+    setState(() => ({
+      game: {},
+      round: {},
+      player_state: {},
+      robot_state: {},
+      dealstack: {},
+      cards: {},
+      currentDealerCard: {},
+      cardRobotPlayed: {},
+      cardPlayerPlayed: {},
+      message: "",
+      }))
+    axios.post(`/games?gametype_id=1&status=not_started`)
+    .then(function (response) {
+      history.push(`/single-player-game/${response.data.id}`)
+      transition("ready")
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   return (
     <div>
       <CenterMain>
@@ -247,7 +285,8 @@ function SingleGame() {
             cardRobotPlayed={state.cardRobotPlayed}
             cardPlayerPlayed={state.cardPlayerPlayed}
             message={state.message} />}
-          {mode === "gameover" && <GameOver message={state.message}/>}
+            <GameOver game={state.game} message={state.message} restartGame={restartGame} />
+            {state.message === "You won!" ? <Confetti /> : <div></div>}
         </CenterDiv>
       </CenterMain>
     </div>

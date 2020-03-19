@@ -101,32 +101,22 @@ function Play(props) {
       <TopDiv>
         <RobotDiv>
           <PlayerIcon name={"Mr. Robot"} image={"https://res.cloudinary.com/susanwz/image/upload/v1584569887/robot_1_nnkph7.svg"} />
-          <CardsDiv>
-            {robotCardImgs}
-          </CardsDiv>
+          <CardsDiv>{robotCardImgs}</CardsDiv>
         </RobotDiv>
         <ScoreDiv>
-          {props.round.round_in_game === 14 ? <h3></h3> : <h3>Round: {props.round.round_in_game}</h3>}
+          {props.round.round_in_game === 14 ? <div></div> : <h3>Round: {props.round.round_in_game}</h3>}
           <p>Your Score: {props.player_state.score}</p>
           <p>Mr. Robot's Score: {props.robot_state.score}</p>
         </ScoreDiv>
       </TopDiv>
       <Table>
-        <TableSection>
-          {robotCardImg}
-        </TableSection>
+        <TableSection>{robotCardImg}</TableSection>
         <TableMiddle>
-          <CardsDiv>
-            {dealstack}
-          </CardsDiv>
+          <CardsDiv>{dealstack}</CardsDiv>
           {dealerCardImg}
-          <MessageDiv>
-            <p>{props.message}</p>
-          </MessageDiv>
+          <MessageDiv><p>{props.message}</p></MessageDiv>
         </TableMiddle>
-        <TableSection>
-          {playerCardImg}
-        </TableSection>
+        <TableSection>{playerCardImg}</TableSection>
       </Table>
       <PlayerHandSection>
         <PlayerIcon name={"You"} image={"https://res.cloudinary.com/susanwz/image/upload/v1584575407/hairstyle_sm5noy.svg"} />
