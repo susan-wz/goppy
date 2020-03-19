@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
+import { Link } from 'react-router-dom';
+
 
 const LogoImg = styled.img`
   height: 6rem;
@@ -9,8 +11,10 @@ const LogoImg = styled.img`
 
 export default function Logo() {
   return (
-    <LogoImg 
-    src="https://res.cloudinary.com/susanwz/image/upload/v1584553992/black-jack_bz453q.svg" 
-    />
+    <Link to="/lobby">
+      <LogoImg
+        src="https://res.cloudinary.com/susanwz/image/upload/v1584553992/black-jack_bz453q.svg"
+      />
+    </Link>
   );
 }

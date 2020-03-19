@@ -7,7 +7,7 @@ import Title from '../Elements/Title.js';
 import Play from "./Play.js";
 import Ready from "./Ready.js";
 import GameOver from "./GameOver.js";
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const CenterMain = styled.main`
   margin-top: 1rem;

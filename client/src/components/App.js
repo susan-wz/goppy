@@ -17,13 +17,13 @@ function App() {
 
   return (
     <div>
-      <Logo />
       <Router>
+        <Logo />
         <Switch>
           <Route exact path="/">
             <Redirect to="/lobby" />
           </Route>
-            {routes}
+          {routes}
         </Switch>
       </Router>
     </div>
