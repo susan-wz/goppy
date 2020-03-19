@@ -247,7 +247,7 @@ function SingleGame() {
             cardRobotPlayed={state.cardRobotPlayed}
             cardPlayerPlayed={state.cardPlayerPlayed}
             message={state.message} />}
-          {mode === "gameover" && <GameOver />}
+          {mode === "gameover" && <GameOver message={state.message}/>}
         </CenterDiv>
       </CenterMain>
     </div>
