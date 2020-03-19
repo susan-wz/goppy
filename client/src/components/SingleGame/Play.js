@@ -30,8 +30,9 @@ const RobotDiv = styled.div`
 
 const CardsDiv = styled.div`
   display: inline-flex;
-  flex-direction: row-reverse;
-  padding-left:50px;
+  flex-direction: row;
+  padding-left: 4vw;
+  width: 16vw;
 `;
 
 const Table = styled.div`
@@ -56,6 +57,10 @@ const PlayPage = styled.div`
 
 const PlayerHandSection = styled.div`
   display: flex;
+`;
+
+const MessageDiv = styled.div`
+  width: 20vw;
 `;
 
 function Play(props) {
@@ -115,13 +120,14 @@ function Play(props) {
             {dealstack}
           </CardsDiv>
           {dealerCardImg}
-          <div></div>
+          <MessageDiv>
+            <p>{props.message}</p>
+          </MessageDiv>
         </TableMiddle>
         <TableSection>
           {playerCardImg}
         </TableSection>
       </Table>
-      <p>{props.message}</p>
       <PlayerHandSection>
         <PlayerIcon name={"You"} image={"https://res.cloudinary.com/susanwz/image/upload/v1584575407/hairstyle_sm5noy.svg"} />
         {playerCards}
