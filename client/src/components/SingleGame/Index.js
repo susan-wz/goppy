@@ -41,7 +41,6 @@ function SingleGame() {
     message: "",
   })
   console.log("state", state)
-  console.log("mode", mode)
 
   // runs before game starts to initialise a game
   useEffect(() => {

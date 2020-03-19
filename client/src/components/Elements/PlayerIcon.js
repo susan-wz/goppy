@@ -28,6 +28,7 @@ export default function PlayerIcon(props) {
         <img
           src={props.image}
           height={"80"}
+          alt={props.name}
         />
       </PlayerImg>
       <PlayerName>{props.name}</PlayerName>
