@@ -15,7 +15,7 @@ export default function CardBack(props) {
         key={props.key}
         src={props.src}
         alt={props.alt}
-        height={"80"}
+        height={"90"}
       />
     </CardsSpan>
   );

@@ -35,13 +35,27 @@ const CardsDiv = styled.div`
 `;
 
 const Table = styled.div`
-  border: 1px solid white;
   border-radius: 10px;
 `;
 
 const TableSection = styled.div`
   display: flex;
   height: 8rem;
+  justify-content: center;
+`;
+
+const TableMiddle = styled.div`
+  display: flex;
+  height: 8rem;
+  justify-content: space-between;
+`;
+
+const PlayPage = styled.div`
+  width: 75vw;
+`;
+
+const PlayerHandSection = styled.div`
+  display: flex;
 `;
 
 function Play(props) {
@@ -78,10 +92,10 @@ function Play(props) {
   const playerCardImg = <CardShow src={props.cardPlayerPlayed.img_url} alt={props.cardPlayerPlayed.name} key={props.cardPlayerPlayed.id} />
 
   return (
-    <div>
+    <PlayPage>
       <TopDiv>
         <RobotDiv>
-          <PlayerIcon name={"Mr. Robot"} />
+          <PlayerIcon name={"Mr. Robot"} image={"https://res.cloudinary.com/susanwz/image/upload/v1584569887/robot_1_nnkph7.svg"} />
           <CardsDiv>
             {robotCardImgs}
           </CardsDiv>
@@ -94,24 +108,25 @@ function Play(props) {
       </TopDiv>
       <Table>
         <TableSection>
-          <h4>Card Robot Played</h4>
           {robotCardImg}
         </TableSection>
-        <TableSection>
+        <TableMiddle>
           <CardsDiv>
             {dealstack}
           </CardsDiv>
           {dealerCardImg}
-          <h4>Prize Card</h4>
-        </TableSection>
+          <div></div>
+        </TableMiddle>
         <TableSection>
           {playerCardImg}
         </TableSection>
       </Table>
       <p>{props.message}</p>
-      <h2>Your Hand</h2>
-      {playerCards}
-    </div>
+      <PlayerHandSection>
+        <PlayerIcon name={"You"} image={"https://res.cloudinary.com/susanwz/image/upload/v1584575407/hairstyle_sm5noy.svg"} />
+        {playerCards}
+      </PlayerHandSection>
+    </PlayPage>
   );
 }
 

@@ -20,7 +20,7 @@ export default function PlayerIcon(props) {
     <div>
       <PlayerImg>
         <img
-          src="https://res.cloudinary.com/susanwz/image/upload/v1584569887/robot_1_nnkph7.svg"
+          src={props.image}
           height={"80"}
         />
       </PlayerImg>
