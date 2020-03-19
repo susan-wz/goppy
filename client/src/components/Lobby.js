@@ -8,7 +8,6 @@ import Title from './Elements/Title.js';
 import styled from 'styled-components'
 
 const CenterMain = styled.main`
-  margin-top: 8rem;
   display: flex;
   justify-content: center;
 `;

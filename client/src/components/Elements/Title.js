@@ -5,6 +5,7 @@ const CenterDiv = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 1rem;
+  height: 6rem;
 `;
 
 const TitleText = styled.h1`

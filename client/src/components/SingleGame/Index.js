@@ -3,6 +3,7 @@ import { withRouter, useLocation } from "react-router";
 import axios from 'axios';
 import useVisualMode from "../../hooks/useVisualMode.js";
 import LoadingCircle from "../Elements/LoadingCircle.js";
+import Title from '../Elements/Title.js';
 import Play from "./Play.js";
 import Ready from "./Ready.js";
 import GameOver from "./GameOver.js";
@@ -232,7 +233,7 @@ function SingleGame() {
     <div>
       <CenterMain>
         <CenterDiv>
-          <h1>Single Player Game</h1>
+          <Title />
           {mode === "loading" && <LoadingCircle />}
           {mode === "ready" && <Ready handleStart={handleStart} />}
           {mode === "play" && <Play
