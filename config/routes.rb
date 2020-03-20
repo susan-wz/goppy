@@ -6,5 +6,8 @@ Rails.application.routes.draw do
   resources :cards, only: [:index, :show]
   resources :gametypes, only: [:index, :show]
   resources :players
+
+  get "/multi-players", to: 'players#multi'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

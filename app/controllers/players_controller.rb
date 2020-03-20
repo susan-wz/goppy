@@ -39,6 +39,12 @@ class PlayersController < ApplicationController
     @player.destroy
   end
 
+  # MULTI /multi-players/
+  def multi
+    @game = Game.find(params[:game_id])
+    render :json => @game.player_states.to_json
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_player
@@ -47,6 +53,6 @@ class PlayersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def player_params
-      params.fetch(:player, {})
+      params.permit(:game_id)
     end
 end
