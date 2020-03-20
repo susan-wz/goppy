@@ -34,9 +34,8 @@ export default function useApplicationData() {
       component: <SingleGame />
     },
     {
-      name: "Menu",
-      path: "/menu",
-      requiresAuthentication: true,
+      name: "Multi Player Game",
+      path: "/multi-player-game",
       component: <MultiGame />
     }
   ];

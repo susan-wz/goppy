@@ -48,6 +48,17 @@ function Lobby(props) {
     setAnchorEl(null);
   };
 
+  const createMultiGame = () => {
+    axios.post(`/games?gametype_id=1&status=not_started`)
+    .then(function (response) {
+      history.push(`/multi-player-game/${response.data.id}`)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  }
+
   return (
     <div>
       <Title />
@@ -69,7 +80,7 @@ function Lobby(props) {
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>Join Multi-Player Game</MenuItem>
-              <MenuItem onClick={handleClose}>Create New Multi-Player Game</MenuItem>
+              <MenuItem onClick={createMultiGame}>Create New Multi-Player Game</MenuItem>
             </Menu>
           </ButtonDiv>
         </CenterDiv>
