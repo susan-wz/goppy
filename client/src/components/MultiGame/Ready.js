@@ -13,6 +13,9 @@ const PlayersDiv = styled.div`
   border-radius: 10px;
   width: 20vw;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   h3 {
     margin: 0.25rem;
   };
@@ -26,11 +29,11 @@ export default function Ready(props) {
   return (
     <CenterDiv>
       <PlayersDiv>
-        <h3>Players joined</h3>
+        <h3>Players Joined</h3>
         <li></li>
-        <p>As long as you have two players, you can start the game!</p>
+        <p>As long as there are at least two players in the game, you can press start!</p>
+        <Button text={"Start"} handleClick={props.handleStart} />
       </PlayersDiv>
-      <Button text={"Start"} handleClick={props.handleStart} />
     </CenterDiv>
   );
 }

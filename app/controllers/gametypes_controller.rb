@@ -13,31 +13,6 @@ class GametypesController < ApplicationController
     render json: @gametype
   end
 
-  # POST /gametypes
-  def create
-    @gametype = Gametype.new(gametype_params)
-
-    if @gametype.save
-      render json: @gametype, status: :created, location: @gametype
-    else
-      render json: @gametype.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /gametypes/1
-  def update
-    if @gametype.update(gametype_params)
-      render json: @gametype
-    else
-      render json: @gametype.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /gametypes/1
-  def destroy
-    @gametype.destroy
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_gametype

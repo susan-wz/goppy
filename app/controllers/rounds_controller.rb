@@ -24,20 +24,6 @@ class RoundsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /rounds/1
-  def update
-    if @round.update(round_params)
-      render json: @round
-    else
-      render json: @round.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /rounds/1
-  def destroy
-    @round.destroy
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_round

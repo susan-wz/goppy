@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  resources :dealstacks
-  resources :rounds
-  resources :player_states
+  resources :dealstacks, except: [:update, :destroy]
+  resources :rounds, except: [:update, :destroy]
+  resources :player_states, except: [:update, :destroy]
   resources :games
-  resources :cards
-  resources :gametypes
+  resources :cards, only: [:index, :show]
+  resources :gametypes, only: [:index, :show]
   resources :players
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
