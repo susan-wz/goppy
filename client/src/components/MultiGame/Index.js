@@ -5,6 +5,7 @@ import axios from 'axios';
 import LoadingCircle from "../Elements/LoadingCircle.js";
 import styled from 'styled-components';
 import Play from "./Play.js";
+import Ready from "./Ready.js";
 
 const CenterMain = styled.main`
   margin-top: 1rem;
@@ -21,14 +22,20 @@ const CenterDiv = styled.div`
 
 function MultiGame() {
   const gameId = useLocation().pathname.substring(20)
-  const { mode, transition } = useVisualMode("loading");
+  const { mode, transition } = useVisualMode("ready");
+
+  // runs when the initial start button is pressed to initialise game variables
+  const handleStart = () => {
+    transition("play")
+  }
 
   return (
     <CenterMain>
       <CenterDiv>
-        <h1>MultiGame</h1>
+        <h1>Multi Player Game</h1>
         {mode === "loading" && <LoadingCircle />}
-        {mode === "loading" && <Play />}
+        {mode === "ready" && <Ready handleStart={handleStart} />}
+        {mode === "play" && <Play />}
       </CenterDiv>
     </CenterMain>
   );
