@@ -42,7 +42,7 @@ class PlayersController < ApplicationController
   # MULTI /multi-players/
   def multi
     @game = Game.find(params[:game_id])
-    render :json => @game.player_states.to_json
+    render :json => @game.players.to_json
   end
 
   private

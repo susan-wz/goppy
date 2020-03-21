@@ -21,7 +21,8 @@ class BasicDatabaseSetup < ActiveRecord::Migration[6.0]
     create_table :games do |t|
       t.integer :gametype_id, :references => [:gametypes, :id]
       t.string :status
-      t.string :winner
+      t.integer :winner
+      t.integer :host, :default => :null
       t.timestamps null: false
     end
 
@@ -77,5 +78,11 @@ class BasicDatabaseSetup < ActiveRecord::Migration[6.0]
       t.string :img_url
       t.timestamps null: false
     end
+
+    create_table :games_players do |t|
+      t.belongs_to :game
+      t.belongs_to :player
+    end
+    
   end
 end

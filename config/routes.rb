@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :games_players, except: [:update, :destroy]
   resources :dealstacks, except: [:update, :destroy]
   resources :rounds, except: [:update, :destroy]
   resources :player_states, except: [:update, :destroy]

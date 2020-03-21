@@ -47,9 +47,17 @@ ActiveRecord::Schema.define(version: 2020_03_05_221317) do
   create_table "games", force: :cascade do |t|
     t.integer "gametype_id"
     t.string "status"
-    t.string "winner"
+    t.integer "winner"
+    t.integer "host"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "games_players", force: :cascade do |t|
+    t.bigint "game_id"
+    t.bigint "player_id"
+    t.index ["game_id"], name: "index_games_players_on_game_id"
+    t.index ["player_id"], name: "index_games_players_on_player_id"
   end
 
   create_table "gametypes", force: :cascade do |t|

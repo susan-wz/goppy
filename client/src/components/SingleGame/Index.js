@@ -157,7 +157,9 @@ function SingleGame() {
   const handleStart = () => {
     Promise.all([
       axios.patch(`/games/${gameId}?status=started`),
-      axios.post(`/rounds?game_id=${gameId}`)
+      axios.post(`/rounds?game_id=${gameId}`),
+      axios.post(`/games_players?game_id=${gameId}&player_id=1`),
+      axios.post(`/games_players?game_id=${gameId}&player_id=2`)
     ]).then(function (response) {
       setState(prev => ({
         ...prev,
