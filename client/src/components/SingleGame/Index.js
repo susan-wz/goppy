@@ -10,6 +10,7 @@ import Ready from "./Ready.js";
 import GameOver from "./GameOver.js";
 import styled from 'styled-components';
 import Confetti from '../Elements/Confetti.js';
+import { useSelector } from 'react-redux';
 
 const CenterMain = styled.main`
   margin-top: 1rem;
