@@ -22,3 +22,65 @@ export const dealCards = (playerState, robotState, dealstack, cards) => {
     cards: cards
   }
 }
+
+export const restartGame = () => {
+  return {
+    type: "RESTART_GAME"
+  }
+}
+
+export const endGame = (game, message) => {
+  return {
+    type: "END_GAME",
+    game: game,
+    message: message,
+  }
+}
+
+export const updateRound = (round) => {
+  return {
+    type: "UPDATE_ROUND",
+    round: round
+  }
+}
+
+export const updatePlayerScore = (playerScore, message) => {
+  return {
+    type: "UPDATE_PLAYER_SCORE",
+    score: playerScore,
+    message: message
+  }
+}
+
+export const updateRobotScore = (robotScore, message) => {
+  return {
+    type: "UPDATE_ROBOT_SCORE",
+    score: robotScore,
+    message: message
+  }
+}
+
+export const updateMessage = (message) => {
+  return {
+    type: "UPDATE_MESSAGE",
+    message: message
+  }
+}
+
+export const dealPrizeCard = (dealerCard, randomCard) => {
+  return {
+    type: "DEAL_PRIZE_CARD",
+    dealerCard: dealerCard,
+    randomCard: randomCard
+  }
+}
+
+export const playCards = (cardRobotPlayed, cardPlayerPlayed, randomCard, cardClicked) => {
+  return {
+    type: "PLAY_CARDS",
+    cardRobotPlayed: cardRobotPlayed,
+    cardPlayerPlayed: cardPlayerPlayed,
+    randomCard: randomCard,
+    cardClicked: cardClicked
+  }
+}
