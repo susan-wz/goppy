@@ -5,7 +5,7 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import axios from 'axios';
 import { createStore } from 'redux';
-import allReducers from './reducers/index.js';
+import reducer from './reducers/index.js';
 import { Provider } from 'react-redux';
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
@@ -15,7 +15,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://localhost:3001';
 
 const store = createStore(
-  allReducers,
+  reducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

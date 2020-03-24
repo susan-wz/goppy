@@ -1,6 +1,6 @@
-const SET_GAME = "SET_GAME";
-const SET_ROUND = "SET_ROUND";
-const SET_PLAYER_STATE = "SET_PLAYER_STATE";
+const INITIALISE_GAME = "INITIALISE_GAME";
+const START_GAME = "START_GAME";
+const DEAL_CARDS = "DEAL_CARDS";
 const SET_ROBOT_STATE = "SET_ROBOT_STATE";
 const SET_DEALSTACK = "SET_DEALSTACK";
 const SET_CARDS = "SET_CARDS";
@@ -8,14 +8,33 @@ const SET_CURRENT_DEALER_CARD = "SET_CURRENT_DEALER_CARD";
 const SET_CARD_ROBOT_PLAYED = "SET_CARD_ROBOT_PLAYED";
 const SET_MESSAGE = "SET_MESSAGE";
 
-export default function reducer(state, action) {
+const initialState = {
+    game: {},
+    round: {},
+    player_state: {},
+    robot_state: {},
+    dealstack: {},
+    cards: {},
+    currentDealerCard: {},
+    cardRobotPlayed: {},
+    cardPlayerPlayed: {},
+    message: "",
+}
+
+export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case SET_GAME:
+    case INITIALISE_GAME:
       return {...state, game: action.game }
-    case SET_ROUND:
-      return {...state, round: action.round }
-    case SET_PLAYER_STATE:
-      return {...state, player_state: action.player_state }
+    case START_GAME:
+      return {...state, game: action.game, round: action.round }
+    case DEAL_CARDS:
+      return {
+        ...state, 
+        player_state: action.player_state,
+        robot_state: action.robot_state,
+        dealstack: action.dealstack,
+        cards: action.cards
+       }
     case SET_ROBOT_STATE:
       return {...state, robot_state: action.robot_state }
     case SET_DEALSTACK:
@@ -30,3 +49,5 @@ export default function reducer(state, action) {
       return {...state, message: action.message }
   }
 }
+
+// restart game, start game

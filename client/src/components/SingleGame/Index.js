@@ -10,7 +10,8 @@ import Ready from "./Ready.js";
 import GameOver from "./GameOver.js";
 import styled from 'styled-components';
 import Confetti from '../Elements/Confetti.js';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { initialiseGame, startGame, dealCards } from "../../actions/index.js";
 
 const CenterMain = styled.main`
   margin-top: 1rem;
@@ -26,6 +27,8 @@ const CenterDiv = styled.div`
 `;
 
 function SingleGame() {
+  const dispatch = useDispatch();
+
   let history = useHistory();
   const gameId = useLocation().pathname.substring(20)
   const { mode, transition } = useVisualMode("loading");
@@ -47,10 +50,7 @@ function SingleGame() {
   useEffect(() => {
     axios.get(`/games/${gameId}`)
       .then(function (response) {
-        setState(prev => ({
-          ...prev,
-          game: response.data
-        }))
+        dispatch(initialiseGame(response.data))
         transition("ready")
       })
       .catch(function (error) {
@@ -162,24 +162,14 @@ function SingleGame() {
       axios.post(`/games_players?game_id=${gameId}&player_id=1`),
       axios.post(`/games_players?game_id=${gameId}&player_id=2`)
     ]).then(function (response) {
-      setState(prev => ({
-        ...prev,
-        game: response[0].data,
-        round: response[1].data
-      }))
+      dispatch(startGame(response[0].data, response[1].data))
       Promise.all([
         axios.post(`/player_states?player_id=1&round_id=${response[1].data.id}&suit=Hearts`),
         axios.post(`/player_states?player_id=2&round_id=${response[1].data.id}&suit=Spades`),
         axios.post(`/dealstacks?suit=Diamonds&round_id=${response[1].data.id}`),
         axios.get('/cards')
       ]).then(function (response) {
-        setState(prev => ({
-          ...prev,
-          player_state: response[0].data,
-          robot_state: response[1].data,
-          dealstack: response[2].data,
-          cards: response[3].data
-        }))
+        dispatch(dealCards(response[0].data, response[1].data, response[2].data, response[3].data))
         transition("play")
       })
     })
@@ -259,14 +249,14 @@ function SingleGame() {
       cardRobotPlayed: {},
       cardPlayerPlayed: {},
       message: "",
-      }))
+    }))
     axios.post(`/games?gametype_id=1&status=not_started`)
-    .then(function (response) {
-      history.push(`/single-player-game/${response.data.id}`)
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        history.push(`/single-player-game/${response.data.id}`)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return (
@@ -287,8 +277,8 @@ function SingleGame() {
             cardRobotPlayed={state.cardRobotPlayed}
             cardPlayerPlayed={state.cardPlayerPlayed}
             message={state.message} />}
-            <GameOver game={state.game} message={state.message} restartGame={restartGame} />
-            {state.message === "You won!" ? <Confetti /> : <div></div>}
+          <GameOver game={state.game} message={state.message} restartGame={restartGame} />
+          {state.message === "You won!" ? <Confetti /> : <div></div>}
         </CenterDiv>
       </CenterMain>
     </div>
