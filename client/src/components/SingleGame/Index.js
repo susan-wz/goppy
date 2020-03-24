@@ -15,10 +15,13 @@ import {
   initialiseGame,
   startGame,
   dealCards,
+  restartGameAction,
+  endGameAction,
   updateRound,
-  updateMessage,
-  updateRobotScore,
   updatePlayerScore,
+  updateRobotScore,
+  updateMessage,
+  dealPrizeCardAction,
   playCards
 } from "../../actions/index.js";
 
@@ -53,8 +56,6 @@ function SingleGame() {
   const cardPlayerPlayed = useSelector(state => state.cardPlayerPlayed)
   const message = useSelector(state => state.message)
 
-  console.log("state", game)
-
   // runs before game starts to initialise a game
   useEffect(() => {
     axios.get(`/games/${gameId}`)
@@ -75,7 +76,7 @@ function SingleGame() {
         const randomCard = remainingCards[Math.floor(Math.random() * remainingCards.length)]
         const allCardsInDealerSuit = cards.filter(card => card.suit === dealstack.suit)
         let currentDealerCard = allCardsInDealerSuit.find(card => card.value === parseInt(randomCard.slice(5)))
-        dispatch(dealPrizeCard(currentDealerCard, randomCard))
+        dispatch(dealPrizeCardAction(currentDealerCard, randomCard))
       }
     }
 
@@ -83,16 +84,16 @@ function SingleGame() {
       axios.patch(`/games/${gameId}?status=ended`)
         .then(function (response) {
           if (player_state.score > robot_state.score) {
-            dispatch(endGame(response.data, "You won!"))
             // post to player table an extra point for their profile
+            dispatch(endGameAction(response.data, "You won!"))
             Promise.all([
               axios.put(`/players/${player_state.player_id}`),
               axios.patch(`/games/${gameId}?winner=${player_state.player_id}`)
             ]).catch((error) => console.log(error))
           } else if (player_state.score > robot_state.score) {
-            dispatch(endGame(response.data, "You and your opponent tied!"))
+            dispatch(endGameAction(response.data, "You and your opponent tied!"))
           } else {
-            dispatch(endGame(response.data, "Your opponent won"))
+            dispatch(endGameAction(response.data, "Your opponent won"))
           }
         })
         .catch((error) => console.log(error))
@@ -196,7 +197,7 @@ function SingleGame() {
 
   const restartGame = () => {
     transition("ready")
-    dispatch(restartGame())
+    dispatch(restartGameAction())
     axios.post(`/games?gametype_id=1&status=not_started`)
       .then(function (response) {
         history.push(`/single-player-game/${response.data.id}`)

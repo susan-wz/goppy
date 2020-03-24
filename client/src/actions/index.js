@@ -23,13 +23,13 @@ export const dealCards = (playerState, robotState, dealstack, cards) => {
   }
 }
 
-export const restartGame = () => {
+export const restartGameAction = () => {
   return {
     type: "RESTART_GAME"
   }
 }
 
-export const endGame = (game, message) => {
+export const endGameAction = (game, message) => {
   return {
     type: "END_GAME",
     game: game,
@@ -67,7 +67,7 @@ export const updateMessage = (message) => {
   }
 }
 
-export const dealPrizeCard = (dealerCard, randomCard) => {
+export const dealPrizeCardAction = (dealerCard, randomCard) => {
   return {
     type: "DEAL_PRIZE_CARD",
     dealerCard: dealerCard,

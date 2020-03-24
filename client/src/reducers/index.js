@@ -8,6 +8,7 @@ const UPDATE_ROBOT_SCORE = "UPDATE_ROBOT_SCORE";
 const UPDATE_MESSAGE = "UPDATE_MESSAGE";
 const DEAL_PRIZE_CARD = "DEAL_PRIZE_CARD";
 const PLAY_CARDS = "PLAY_CARDS"
+const END_GAME = "END GAME"
 
 const initialState = {
   game: {},
@@ -85,6 +86,12 @@ export default function reducer(state = initialState, action) {
           ...state.player_state,
           [action.cardClicked]: false
         }
+      }
+    case END_GAME:
+      return {
+        ...state, 
+        game: action.game,
+        message: action.message
       }
     default:
       return state;
