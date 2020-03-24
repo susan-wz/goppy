@@ -8,7 +8,7 @@ const UPDATE_ROBOT_SCORE = "UPDATE_ROBOT_SCORE";
 const UPDATE_MESSAGE = "UPDATE_MESSAGE";
 const DEAL_PRIZE_CARD = "DEAL_PRIZE_CARD";
 const PLAY_CARDS = "PLAY_CARDS"
-const END_GAME = "END GAME"
+const END_GAME = "END_GAME"
 
 const initialState = {
   game: {},
