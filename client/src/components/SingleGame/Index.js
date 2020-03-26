@@ -15,7 +15,7 @@ import {
   initialiseGame,
   startGame,
   dealCards,
-  restartGameAction,
+  clearState,
   endGameAction,
   updateRound,
   updatePlayerScore,
@@ -197,7 +197,7 @@ function SingleGame() {
 
   const restartGame = () => {
     transition("ready")
-    dispatch(restartGameAction())
+    dispatch(clearState())
     axios.post(`/games?gametype_id=1&status=not_started`)
       .then(function (response) {
         history.push(`/single-player-game/${response.data.id}`)

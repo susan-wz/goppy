@@ -1,7 +1,7 @@
 const INITIALISE_GAME = "INITIALISE_GAME";
 const START_GAME = "START_GAME";
 const DEAL_CARDS = "DEAL_CARDS";
-const RESTART_GAME = "RESTART_GAME";
+const CLEAR_STATE = "CLEAR_STATE";
 const UPDATE_ROUND = "UPDATE_ROUND";
 const UPDATE_PLAYER_SCORE = "UPDATE_PLAYER_SCORE";
 const UPDATE_ROBOT_SCORE = "UPDATE_ROBOT_SCORE";
@@ -37,7 +37,7 @@ export default function reducer(state = initialState, action) {
         dealstack: action.dealstack,
         cards: action.cards
       }
-    case RESTART_GAME:
+    case CLEAR_STATE:
       return { ...initialState }
     case UPDATE_ROUND:
       return { ...state, round: action.round }

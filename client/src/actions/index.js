@@ -23,9 +23,9 @@ export const dealCards = (playerState, robotState, dealstack, cards) => {
   }
 }
 
-export const restartGameAction = () => {
+export const clearState = () => {
   return {
-    type: "RESTART_GAME"
+    type: "CLEAR_STATE"
   }
 }
 
