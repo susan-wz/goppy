@@ -15,7 +15,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function GameOver(props) {
   const [open, setOpen] = React.useState(false);
 
-
   useEffect(() => {
     if (props.game.status === "ended") {
       setOpen(true);
@@ -41,7 +40,7 @@ function GameOver(props) {
         <DialogTitle id="alert-dialog-slide-title">{"Game Over"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            {props.message === "You won!" ? <h4>You won, congrats!</h4> : <h4>Good game! Play again?</h4>}
+            {props.message === "You won!" ? "You won, congrats!" : "Good game! Play again?" }
           </DialogContentText>
         </DialogContent>
         <DialogActions>
