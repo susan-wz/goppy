@@ -1,24 +1,25 @@
-# README
+# Goppy
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Goppy is a card game app built with React and Rails. It's currently a work-in-progress. I'm using this to improve my skills with using React, Rails, Redux, and Websockets. 
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+To install dependencies:
+- Within Client directory run  
+```sh
+npm install
+``` 
+- Within root directory run  
+```sh
+bundle install
+``` 
+## Running Development Servers
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Rails API back-end:
+```sh
+bin/rails s
+```
+React front-end:
+```sh
+npm start
+```
