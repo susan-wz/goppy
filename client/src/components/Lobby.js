@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import Button from './Elements/Button.js';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import axios from 'axios';
 import Title from './Elements/Title.js';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { clearState } from "../actions/index.js";
 
 const CenterMain = styled.main`
   display: flex;
@@ -29,6 +31,11 @@ const ButtonDiv = styled.div`
 function Lobby(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   let history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearState())
+  }, [])
 
   const handleSinglePlayer = () => {
     axios.post(`/games?gametype_id=1&status=not_started`)

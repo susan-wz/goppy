@@ -37,7 +37,6 @@
   },
   "proxy": "http://localhost:3000",
   "devDependencies": {
-    "react-router-redux": "^4.0.8",
     "redux": "^4.0.5"
   }
 }

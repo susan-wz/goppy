@@ -26,7 +26,7 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case INITIALISE_GAME:
-      return { ...state, game: action.game }
+      return { ...initialState, game: action.game }
     case START_GAME:
       return { ...state, game: action.game, round: action.round }
     case DEAL_CARDS:
