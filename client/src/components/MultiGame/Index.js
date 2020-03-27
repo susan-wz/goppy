@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import Play from "./Play.js";
 import Ready from "./Ready.js";
 import { useSelector, useDispatch } from 'react-redux';
-import { setPlayerName } from "../../actions/index.js";
+import { setPlayerNames } from "../../actions/index.js";
 
 const CenterMain = styled.main`
   margin-top: 1rem;
@@ -24,20 +24,24 @@ const CenterDiv = styled.div`
 
 function MultiGame() {
   const dispatch = useDispatch();
-  const gameId = useLocation().pathname.substring(20)
+  const gameId = useLocation().pathname.substring(19)
   const { mode, transition } = useVisualMode("ready");
 
-  const playerName = useSelector(state => state.playerName)
+  const playerNames = useSelector(state => state.playerNames)
 
   useEffect(() => {
-    axios.get(`/players/1`)
+    axios.get(`/multi-players?game_id=${gameId}`)
     .then(function (response) {
-      dispatch(setPlayerName(response.data.username))
+      let players = [];
+      for (let player of response.data) {
+        players.push(player.username)
+      }
+      dispatch(setPlayerNames(players))
     })
     .catch(function (error) {
       console.log(error);
     });
-  }, [])
+  }, [gameId])
 
   // runs when the initial start button is pressed to initialise game variables
   const handleStart = () => {
@@ -49,7 +53,7 @@ function MultiGame() {
       <CenterDiv>
         <h1>Multi Player Game</h1>
         {mode === "loading" && <LoadingCircle />}
-        {mode === "ready" && <Ready handleStart={handleStart} playerName={playerName} />}
+        {mode === "ready" && <Ready handleStart={handleStart} playerNames={playerNames} />}
         {mode === "play" && <Play />}
       </CenterDiv>
     </CenterMain>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '../Elements/Button';
 import styled from 'styled-components'
 
@@ -26,13 +26,21 @@ const PlayersDiv = styled.div`
 `;
 
 export default function Ready(props) {
-
+  
+  let players;
+  if (props.playerNames) {
+    players = props.playerNames.map(name => {
+      return <li>{name}</li>
+    })
+  }
 
   return (
     <CenterDiv>
       <PlayersDiv>
         <h3>Players Joined</h3>
-        <li>{props.playerName}</li>
+        <ul>
+          {players}
+        </ul>
         <p>As long as there are at least two players in the game, you can press start!</p>
         <Button text={"Start"} handleClick={props.handleStart} />
       </PlayersDiv>

@@ -58,6 +58,7 @@ function Lobby(props) {
   const createMultiGame = () => {
     axios.post(`/games?gametype_id=1&status=not_started`)
     .then(function (response) {
+      axios.post(`/games_players?game_id=${response.data.id}&player_id=1`)
       history.push(`/multi-player-game/${response.data.id}`)
     })
     .catch(function (error) {
