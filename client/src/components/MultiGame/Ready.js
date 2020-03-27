@@ -26,11 +26,14 @@ const PlayersDiv = styled.div`
 `;
 
 export default function Ready(props) {
+
+console.log("PROPS", props)
+
   return (
     <CenterDiv>
       <PlayersDiv>
         <h3>Players Joined</h3>
-        <li></li>
+        <li>{props.playerName}</li>
         <p>As long as there are at least two players in the game, you can press start!</p>
         <Button text={"Start"} handleClick={props.handleStart} />
       </PlayersDiv>

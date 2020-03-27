@@ -84,3 +84,10 @@ export const playCards = (cardRobotPlayed, cardPlayerPlayed, randomCard, cardCli
     cardClicked: cardClicked
   }
 }
+
+export const setPlayerName = (playerName) => {
+  return {
+    type: "SET_PLAYER_NAME",
+    playerName: playerName
+  }
+}

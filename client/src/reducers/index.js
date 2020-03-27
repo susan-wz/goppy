@@ -9,6 +9,7 @@ const UPDATE_MESSAGE = "UPDATE_MESSAGE";
 const DEAL_PRIZE_CARD = "DEAL_PRIZE_CARD";
 const PLAY_CARDS = "PLAY_CARDS"
 const END_GAME = "END_GAME"
+const SET_PLAYER_NAME = "SET_PLAYER_NAME"
 
 const initialState = {
   game: {},
@@ -21,6 +22,7 @@ const initialState = {
   cardRobotPlayed: {},
   cardPlayerPlayed: {},
   message: "",
+  playerName: ""
 }
 
 export default function reducer(state = initialState, action) {
@@ -93,6 +95,11 @@ export default function reducer(state = initialState, action) {
         game: action.game,
         message: action.message
       }
+      case SET_PLAYER_NAME:
+        return {
+          ...state,
+          playerName: action.playerName
+        }
     default:
       return state;
   }
