@@ -212,7 +212,9 @@ function SingleGame() {
       <CenterMain>
         <CenterDiv>
           <Title />
-          <Prompt message="Are you sure you want to quit the game?" />
+          <Prompt
+            when={game.status === "started"}
+            message="Are you sure you want to quit the game?" />
           {mode === "loading" && <LoadingCircle />}
           {mode === "ready" && <Ready handleStart={handleStart} />}
           {mode === "play" && <Play
