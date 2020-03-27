@@ -27,7 +27,6 @@ const PlayersDiv = styled.div`
 
 export default function Ready(props) {
 
-console.log("PROPS", props)
 
   return (
     <CenterDiv>

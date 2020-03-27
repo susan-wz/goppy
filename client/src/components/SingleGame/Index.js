@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { withRouter, useLocation } from "react-router";
-import { useHistory } from "react-router-dom";
+import { useHistory, Prompt } from "react-router-dom";
 import axios from 'axios';
 import useVisualMode from "../../hooks/useVisualMode.js";
 import LoadingCircle from "../Elements/LoadingCircle.js";
@@ -212,6 +212,7 @@ function SingleGame() {
       <CenterMain>
         <CenterDiv>
           <Title />
+          <Prompt message="Are you sure you want to quit the game?" />
           {mode === "loading" && <LoadingCircle />}
           {mode === "ready" && <Ready handleStart={handleStart} />}
           {mode === "play" && <Play
