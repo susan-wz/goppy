@@ -85,9 +85,9 @@ export const playCards = (cardRobotPlayed, cardPlayerPlayed, randomCard, cardCli
   }
 }
 
-export const setPlayerName = (playerName) => {
+export const setPlayerNames = (playerNames) => {
   return {
-    type: "SET_PLAYER_NAME",
-    playerName: playerName
+    type: "SET_PLAYER_NAMES",
+    playerNames: playerNames
   }
 }
